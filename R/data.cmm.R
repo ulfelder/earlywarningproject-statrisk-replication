@@ -9,11 +9,11 @@ rm(list=ls(all=TRUE))
 # Load required packages and functions
 library(XLConnect)
 library(reshape)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
+source("r/f.countryyearrackit.r")
 
 # Get the data, which is an event file (one row per event), not country-year
-csp <- readWorksheetFromFile("c:/users/jay/documents/ushmm/statrisk.replication/data.in/cspcoupslist2013.xls", sheet=1)
+csp <- readWorksheetFromFile("data.in/cspcoupslist2013.xls", sheet=1)
 
 # Cut down to the essentials
 csp <- subset(csp, is.na(scode)==FALSE, select=c(scode, year, success))
@@ -58,4 +58,4 @@ csp.tscs[is.na(csp.tscs)] <- 0
 csp.tscs <- csp.tscs[order(csp.tscs$sftgcode, csp.tscs$year),]
 
 # Write it out
-write.csv(csp.tscs, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/cmm.csv", row.names = FALSE)
+write.csv(csp.tscs, "data.out/cmm.csv", row.names = FALSE)
