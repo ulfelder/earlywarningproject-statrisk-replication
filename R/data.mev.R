@@ -10,8 +10,8 @@ rm(list=ls(all=TRUE))
 library(XLConnect)
 library(reshape)
 
-# Load the MPEV data set
-mepv <- readWorksheetFromFile("c:/users/jay/documents/ushmm/statrisk2014v2/indata/mepv2013.xls", sheet=1)
+# Load the MEPV data set
+mepv <- readWorksheetFromFile("data.in/mepv2013.xls", sheet=1)
 mepv$ccode <- mepv$country <- NULL
 mepv <- rename(mepv, c(scode="sftgcode"))
 
@@ -26,4 +26,4 @@ mepv$sftgcode[mepv$sftgcode=="SDN"] <- "SUD"
 names(mepv) <- c("sftgcode", "year", paste0("mev.", names(mepv)[3:length(names(mepv))]))
 
 # Write it out
-write.csv(mepv, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/mev.csv", row.names=FALSE)
+write.csv(mepv, "data.out/mev.csv", row.names=FALSE)
