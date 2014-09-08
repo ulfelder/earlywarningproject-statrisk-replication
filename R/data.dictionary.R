@@ -6,8 +6,7 @@ library(Hmisc)
 library(DataCombine)
 
 # Load the transformed data
-setwd("c:/users/jay/documents/ushmm/statrisk.replication/data.out/")
-dat <- read.csv("ewp.statrisk.data.transformed.csv")
+dat <- read.csv("dat.out/ewp.statrisk.data.transformed.csv")
 
 # NOTES ON DATA
 #
@@ -192,7 +191,8 @@ label(dat$ios.oic) <- "OIC member"
 label(dat$imr.raw) <- "Est. infant mortality rate, raw"
 label(dat$imr.normed) <- "Est. infant mortality rate relative to annual global median"
 
-dat$elc.eleth <- factor(dat$elc.eleth, levels=c(0,1,2), labels=c('not salient','salient/majority rule', 'salient/minority rule'))
+dat$elc.eleth <- factor(dat$elc.eleth, levels=c(0,1,2),
+  labels=c('not salient','salient/majority rule', 'salient/minority rule'))
 label(dat$elc.eleth) <- "Ruling elite's ethnicity is political salient"
 label(dat$elc.eliti) <- "Ruling elites espouse an exclusionary ideology"
 
@@ -269,8 +269,8 @@ label(dat$wdi.trade.ln) <- "Trade openness, logged"
 dat$pol.cat.fl <- factor(dat$pol.cat.fl, levels = c(1,2,3,7), labels = c("autocracy", "anocracy", "democracy", "other"))
 label(dat$pol.cat.fl) <- "Political regime type per Fearon & Laitin (2003)"
 dat$pol.cat.fl <- factor(dat$pol.cat.pitf, levels = c("A/F", "A/P", "D/fact", "D/P", "D/F", "other"),
-  labels = c("Full autocracy", "Partial autocracy", "Partial democracy w/factionalism", "Partial democracy w/o factionalism",
-  "Full democracy", "Other"))
+  labels = c("Full autocracy", "Partial autocracy", "Partial democracy w/factionalism",
+  "Partial democracy w/o factionalism", "Full democracy", "Other"))
 label(dat$pol.cat.pitf) <- "Political regime type per PITF (Goldstone et al. 2010)"
 label(dat$pol.cat.fl1) <- "Autocracy (F&L)"        
 label(dat$pol.cat.fl2) <- "Anocracy (F&L)"         
@@ -328,4 +328,4 @@ label(dat$slowgrowth) <- "Indicator of annual change in GDP per capita under 2%"
 
 # Create LaTeX file with data names, labels, and summaries
 descrip <- describe(dat, digits = 3)
-latex(descrip, file = "ewp.statrisk.data.dictionary.tex")
+latex(descrip, file = "dat.out/ewp.statrisk.data.dictionary.tex")
