@@ -8,8 +8,8 @@ rm(list=ls(all=TRUE))
 
 # Load required packages and functions
 library(reshape)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
+source("r/f.countryyearrackit.r")
 
 # Ingest raw data, which is event file (one row per event), not country-year, from URL
 cpt <- read.delim("http://www.uky.edu/~clthyn2/coup_data/powell_thyne_coups_final.txt")
@@ -47,4 +47,4 @@ pt.tscs <- pt.tscs[order(pt.tscs$sftgcode, pt.tscs$year),]
 pt.tscs[is.na(pt.tscs)] <- 0
 
 # Write it out
-write.csv(pt.tscs, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/cpt.csv", row.names = FALSE)
+write.csv(pt.tscs, "data.out/cpt.csv", row.names = FALSE)
