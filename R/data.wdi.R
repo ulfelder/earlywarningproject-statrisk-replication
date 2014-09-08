@@ -12,8 +12,8 @@ rm(list=ls(all=TRUE))
 
 # Load required packages and functions
 library(WDI)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
 
 wdilist <- c("NE.TRD.GNFS.ZS",     # Trade (% of GDP)
              "NY.GDP.PCAP.PP.KD",  # GDP per capita, PPP (constant 2005 intl $)
@@ -81,4 +81,4 @@ names(wdi) <- c("sftgcode", "year",
 
 # Reorder for easier review and write out as .csv
 wdi <- wdi[order(wdi$sftgcode, wdi$year),]
-write.csv(wdi, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/wdi.csv", row.names=FALSE)
+write.csv(wdi, "data.out/wdi.csv", row.names=FALSE)
