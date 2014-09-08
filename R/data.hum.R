@@ -7,16 +7,16 @@
 rm(list=ls(all=TRUE))
 
 # Load requisite packages and functions
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.pitfcodeit.r")
 
 # Ingest data
-hum <- read.csv("c:/users/jay/documents/ushmm/statrisk.replication/data.in/HumanRightsProtectionScores_v2.03.csv")
+hum <- read.csv("data.in/HumanRightsProtectionScores_v2.03.csv")
 
 # Add PITF country codes
 hum$country <- as.character(hum$NAME)
 hum <- pitfcodeit(hum, "country")
 
-# Drop set of observations for subset of Israel (pre-1967 borders only)
+# Drop set of observations for subset of Israel (pre-1967 borders only); keep whole-country numbers
 hum <- subset(hum, country!="Israel, pre-1967 borders")
 
 # Get rid of extraneous ID variables
@@ -35,4 +35,4 @@ hum$hum.latentmean <- round(hum$hum.latentmean, 2)
 hum$hum.latentsd <- round(hum$hum.latentsd, 2)
 
 # Write out
-write.csv(hum, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/hum.csv", row.names = FALSE)
+write.csv(hum, "data.out/hum.csv", row.names = FALSE)
