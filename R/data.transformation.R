@@ -9,29 +9,26 @@ library(DataCombine)
 library(plyr)
 library(plm)
 library(Hmisc)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
-
-# Set working directory
-setwd("c:/users/jay/documents/ushmm/statrisk.replication/data.out/")
+source("r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
 
 # Load the raw data sets
-mkl <- read.csv("mkl.csv")
-wdi <- read.csv("wdi.csv")
-cpt <- read.csv("cpt.csv")
-cmm <- read.csv("cmm.csv")
-pol <- read.csv("pol.csv")
-pit <- read.csv("pit.csv")
-mev <- read.csv("mev.csv")
-ios <- read.csv("ios.csv")
-imr <- read.csv("imr.csv")
-elc <- read.csv("elc.csv")
-dis <- read.csv("dis.csv")
-elf <- read.csv("elf.csv")
-imf <- read.csv("imf.csv")
-hum <- read.csv("hum.csv")
-fiw <- read.csv("fiw.csv")
-aut <- read.csv("aut.csv")
+mkl <- read.csv("data.out/mkl.csv")
+wdi <- read.csv("data.out/wdi.csv")
+cpt <- read.csv("data.out/cpt.csv")
+cmm <- read.csv("data.out/cmm.csv")
+pol <- read.csv("data.out/pol.csv")
+pit <- read.csv("data.out/pit.csv")
+mev <- read.csv("data.out/mev.csv")
+ios <- read.csv("data.out/ios.csv")
+imr <- read.csv("data.out/imr.csv")
+elc <- read.csv("data.out/elc.csv")
+dis <- read.csv("data.out/dis.csv")
+elf <- read.csv("data.out/elf.csv")
+imf <- read.csv("data.out/imf.csv")
+hum <- read.csv("data.out/hum.csv")
+fiw <- read.csv("data.out/fiw.csv")
+aut <- read.csv("data.out/aut.csv")
 
 # Create a country-year rack covering the requisite years
 rack <- countryyearrackit(1945,2013)
@@ -59,7 +56,7 @@ dat <- merge(dat, hum, all.x = TRUE)
 dat <- dat[order(dat$country, dat$year),]
 
 # Write that data frame to .csv.
-write.csv(dat, file = "ewp.statrisk.data.raw.csv", row.names = FALSE)
+write.csv(dat, file = "data.out/ewp.statrisk.data.raw.csv", row.names = FALSE)
 
 # Remove all objects except dat from the workspace
 rm(list=setdiff(ls(), "dat"))
@@ -68,10 +65,6 @@ rm(list=setdiff(ls(), "dat"))
 # Onset of state-led mass killing in following year (***TARGET/DEP VAR FOR RISK ASSESSMENTS***)
 ld1 <- function(x)c(x[2:(length(x))], NA) # Function for 1-year lead; gets 2nd thru last obs, appends NA at end
 dat <- ddply(dat, ~country, transform, mkl.start.1 = ld1(mkl.start))
-# Alt version using 'slide' from DataCombine package. I'm not using slide right now because it deletes all rows
-# for groups (here, countries) for which there are fewer rows than the slideBy number. In these data, that's not
-# a problem up to -3 for lagging, but after that it deletes South Sudan, then others.
-# dat <- slide(dat[order(dat$country, dat$year),], "mkl.start", GroupVar = "country", NewVar = "mkl.start.1", slideBy = 1)
 
 ### Country age
 dat$countryage <- dat$year - dat$yrborn
@@ -350,40 +343,4 @@ dat$slowgrowth[is.na(dat$wdi.gdppcgrow)==TRUE & is.na(dat$imf.gdppcgrow)==FALSE]
 dat <- MoveFront(dat, Var = c("country", "sftgcode", "year"))
 
 # Write .csv
-write.csv(dat, file = "ewp.statrisk.data.transformed.csv", row.names = FALSE)
-
-############################################
-# Cutting-Room Floor
-############################################
-
-# lagit <- function(x, y) { ifelse( length(x) <= y, rep(NA, times = length(x)), c( rep(NA, times = y), x[1:(length(x)-y)]) ) }
-# Returns NAs for everything
-# library(plyr)
-# lg1 <- function(x) { c(NA, x[1:(length(x)-1)]) } # Function for 1-year lag; gets 1st thru penultimate obs, appends NA at start
-# lg2 <- function(x) { c(NA, NA, x[1:(length(x)-2)]) }
-# lg3 <- function(x)c(NA, NA, NA, x[1:(length(x)-3)])
-# lg4 <- function(x)c(NA, NA, NA, NA, x[1:(length(x)-4)])
-# dat <- ddply(dat, ~country, transform, cou.a.d.1 = lagit(cou.a.d, 1))
-
-# library(DataCombine)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.s.d", GroupVar = "country", NewVar = "cou.s.d.1", slideBy = -1)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.s.d", GroupVar = "country", NewVar = "cou.s.d.2", slideBy = -2)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.s.d", GroupVar = "country", NewVar = "cou.s.d.3", slideBy = -3)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.s.d", GroupVar = "country", NewVar = "cou.s.d.4", slideBy = -4)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.f.d", GroupVar = "country", NewVar = "cou.f.d.1", slideBy = -1)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.f.d", GroupVar = "country", NewVar = "cou.f.d.2", slideBy = -2)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.f.d", GroupVar = "country", NewVar = "cou.f.d.3", slideBy = -3)
-# dat <- slide(dat[order(dat$country, dat$year),], "cou.f.d", GroupVar = "country", NewVar = "cou.f.d.4", slideBy = -4)
-
-#       i. Start by getting lags for those 9 years that don't leak across countries using 'slide'.
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.1", slideBy = -1)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.2", slideBy = -2)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.3", slideBy = -3)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.4", slideBy = -4)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.5", slideBy = -5)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.6", slideBy = -6)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.7", slideBy = -7)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.8", slideBy = -8)
-# dat <- slide(dat[order(dat$country, dat$year),], "pit.mag.max", GroupVar = "country", NewVar = "pit.mag.max.9", slideBy = -9)
-
-
+write.csv(dat, file = "data.out/ewp.statrisk.data.transformed.csv", row.names = FALSE)
