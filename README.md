@@ -1,9 +1,11 @@
 earlywarningproject-statrisk-replication
 ========================================
 
-This repository contains R scripts and links to the data required to replicate---and, if desired, to modify or to extend---statistical risk assessments I generate for the Early Warning Project. Please direct questions or bug reports to me, Jay Ulfelder, at ulfelder <at> gmail <dot> com. To learn more about the Early Warning Project, see [this FAQ](http://cpgearlywarning.wordpress.com/about/frequently-asked-questions/).
+This repository contains R scripts and links to the data required to reproduce---and, if desired, to modify or to extend---statistical risk assessments I generate for the Early Warning Project. Please direct questions or bug reports to me at ulfelder <at> gmail <dot> com. To learn more about the design of our statistical risk assessment process and the Early Warning Project more generally, see [this FAQ](http://cpgearlywarning.wordpress.com/about/frequently-asked-questions/).
 
 The process of generating these risk assessments has two stages: 1) data ingestion, compilation, and transformation; and 2) modeling. The R scripts in this repository are prefixed accordingly (data or model). You can follow the process all the way from the raw source data to forecasts based on the most recent data available, or you can load the compiled and transformed data set and proceed directly to stage 2, modeling.
+
+It is important to note at the start that replication of this modeling process will not precisely reproduce the risk assessments reported by the Early Warning Project. These assessments are an average of three forecasts, one of which is produced by Random Forests. As the name implies, each application of Random Forests to the same data will produce slightly different results. When the process is properly reproduced, the results should be quite similar but not exactly the same. 
 
 __DIRECTORY STRUCTURE__
 _______________________
@@ -19,9 +21,9 @@ All of the R scripts listed here, including the two functions listed under DEPEN
 
 All of the source data files should be stored in the \data.in folder. (This does not need to be created if you plan to skip directly to stage 2, modeling.)
 
-The \data.out folder is used to hold all of the files created in stage 1, including the compiled and transformed version of the data set, and the forecasts generated in the modeling stage by 'model.prediction.r'. *NOTE: If you plan to skip stage 1 and go right to modeling, you need to have the "ewp.statrisk.data.transformed.csv" in this folder, NOT the \data.in folder.*
+The \data.out folder is used to hold all of the files created in stage 1, including the compiled and transformed version of the data set, and the forecasts generated in the modeling stage by 'model.prediction.r'. *NOTE: If you plan to skip stage 1 and go right to modeling, you need to have the data set produced by "data.transformation.r" in this folder, NOT in the \data.in folder.*
 
-The \figs folder is the destination for plots and maps created by 'model.validation.r' and 'model.prediction.r'.
+The \figs folder is the destination for plots and maps created by "model.validation.r" and "model.prediction.r".
 
 __ANALYSIS__
 ____________
@@ -56,7 +58,7 @@ Of course, these scripts also depend on access to files (or, in a few cases, URL
 
 ### 2. Modeling
 
-The scripts for stage 2 (modeling) are listed below. *Users wishing to replicate or extend the risk assessments used by EWP may simply start with the data set produced by "data.transformation.r" in stage 1 ("~data.out\ewp.statrisk.data.transformed.csv") and then use these scripts.*
+The scripts for stage 2 (modeling) are listed below. *Users wishing to replicate or extend the risk assessments used by EWP may simply start with the "ewp.statrisk.data.transformed.csv" data set produced by "data.transformation.r" in stage 1 and then use these scripts.*
 
 * model.formulae.r
 * model.prediction.r
