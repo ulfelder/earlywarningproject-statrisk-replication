@@ -7,14 +7,14 @@ rm(list=ls(all=TRUE))
 
 # Load required packages and functions
 library(reshape)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.pitfcodeit.r")
 
 # 2013 updates from IMF
 # Source: http://www.imf.org/external/pubs/ft/weo/2014/01/weodata/index.aspx
 # Download "By countries" > All countries > Continue > 
 # [check] Gross domestic product per capita, constant prices (national currency) > 
 # [start year -> 1980] [end year -> 2013] [uncheck] Append country/series-specific notes > Prepare report
-weo2013 <- read.delim("c:/users/jay/documents/ushmm/statrisk.replication/data.in/imfgdppc.aspx")
+weo2013 <- read.delim("ata.in/imfgdppc.aspx")
 weo2013$g2013 <- as.numeric(gsub(",", "", as.character(weo2013$X2013)))
 weo2013$g2012 <- as.numeric(gsub(",", "", as.character(weo2013$X2012)))
 weo2013$g2011 <- as.numeric(gsub(",", "", as.character(weo2013$X2011)))
@@ -62,4 +62,4 @@ weomelt <- subset(weomelt, select=c(sftgcode, year, imf.gdppc))
 weomelt <- weomelt[order(weomelt$sftgcode, weomelt$year),]
 
 # Write it out
-write.csv(weomelt, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/imf.csv", row.names = FALSE)
+write.csv(weomelt, "data.out/imf.csv", row.names = FALSE)
