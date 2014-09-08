@@ -21,7 +21,7 @@ All of the R scripts listed here, including the two functions listed under DEPEN
 
 All of the source data files should be stored in the \data.in folder. (This does not need to be created if you plan to skip directly to stage 2, modeling.)
 
-The \data.out folder is used to hold all of the files created in stage 1, including the compiled and transformed version of the data set, and the forecasts generated in the modeling stage by "model.prediction.r". *NOTE: If you plan to skip stage 1 and go right to modeling, you need to have the data set produced by "data.transformation.r" in this folder, NOT in the \data.in folder.*
+The \data.out folder is used to hold all of the files created in stage 1, including the compiled and transformed version of the data set, and the forecasts generated in the modeling stage by "model.prediction.r". If you plan to skip stage 1 and go right to modeling, you need to have the data set produced by "data.transformation.r" in this folder, NOT in the \data.in folder.
 
 The \figs folder is the destination for plots and maps created by "model.validation.r" and "model.prediction.r".
 
