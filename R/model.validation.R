@@ -10,44 +10,48 @@ library(randomForest)
 library(verification)
 library(ROCR)
 
-# Set working directory
-setwd("c:/users/jay/documents/ushmm/statrisk.replication/data.out/")
-
 # Load the merged data
-dat <- read.csv("ewp.statrisk.data.transformed.csv")
+dat <- read.csv("data.out/ewp.statrisk.data.transformed.csv")
 
 # Load the model formulae
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/model.formulae.r")
+source("r/model.formulae.r")
 
 #############################
 # Model Validation
 #############################
 
-valdat <- subset(dat, year >= 1960 & year <= 2013 & dat$year >= dat$yrborn & dat$year <= dat$yrdied & is.na(mkl.start.1) == FALSE)
+valdat <- subset(dat, year >= 1960 & year <= 2013 & dat$year >= dat$yrborn & dat$year <= dat$yrdied &
+  is.na(mkl.start.1) == FALSE)
 y <- valdat$mkl.start.1
 valdat$k <- createFolds(y, k = 10, list = FALSE)
 
 predit <- function(x) {
-     train <- subset(valdat, k != x)
-     test <- subset(valdat, k == x)
-     test$cwar.p <- predict(glm(f.cwar, family = binomial, data = train, na.action = na.exclude), newdata = test, type = "response")
-     test$coup.p <- predict(glm(f.coup, family = binomial, data = train, na.action = na.exclude), newdata = test, type = "response")
-     train$cwar.p <- predict(glm(f.cwar, family = binomial, data = train, na.action = na.exclude), type = "response")
-     train$coup.p <- predict(glm(f.coup, family = binomial, data = train, na.action = na.exclude), type = "response")
-     test$threat.p <- predict(glm(f.threat, family = binomial, data = train, na.action = na.exclude), newdata = test, type = "response")
-     test$pitf.p <- predict(glm(f.pitf, family = binomial, data = subset(train, pit.any.ongoing==0),
-       na.action = na.exclude), newdata = test, type = "response")
-     train$pitf.p <- predict(glm(f.pitf, family = binomial, data = train, na.action = na.exclude), type = "response")
-     test$harff.p <- predict(glm(f.harff, family = binomial, data = train, na.action = na.exclude), newdata = test, type = "response")
-     require(randomForest)
-     test$rf.p <- predict(randomForest(f.rf, data = train, na.action="na.exclude", ntree = 1000, mtry = 3, cutoff=c(0.2,0.8)),
-       newdata = test, type = "prob", na.action = "na.exclude")[,2]
-     test$mean.p <- (test$threat.p + test$harff.p + test$rf.p)/3
-     out <- subset(test, select = c(sftgcode, year, mkl.start.1, mean.p, threat.p, harff.p, rf.p, k))
-     return(out)
+  train <- subset(valdat, k != x)
+  test <- subset(valdat, k == x)
+  test$cwar.p <- predict(glm(f.cwar, family = binomial, data = train, na.action = na.exclude),
+    newdata = test, type = "response")
+  test$coup.p <- predict(glm(f.coup, family = binomial, data = train, na.action = na.exclude),
+    newdata = test, type = "response")
+  train$cwar.p <- predict(glm(f.cwar, family = binomial, data = train, na.action = na.exclude), type = "response")
+  train$coup.p <- predict(glm(f.coup, family = binomial, data = train, na.action = na.exclude), type = "response")
+  test$threat.p <- predict(glm(f.threat, family = binomial, data = train, na.action = na.exclude),
+    newdata = test, type = "response")
+  test$pitf.p <- predict(glm(f.pitf, family = binomial, data = subset(train, pit.any.ongoing==0),
+    na.action = na.exclude), newdata = test, type = "response")
+  train$pitf.p <- predict(glm(f.pitf, family = binomial, data = train, na.action = na.exclude), type = "response")
+  test$harff.p <- predict(glm(f.harff, family = binomial, data = train, na.action = na.exclude),
+    newdata = test, type = "response")
+  require(randomForest)
+  test$rf.p <- predict(randomForest(f.rf, data = train, na.action="na.exclude", ntree = 1000, mtry = 3,
+    cutoff=c(0.2,0.8)), newdata = test, type = "prob", na.action = "na.exclude")[,2]
+  test$mean.p <- (test$threat.p + test$harff.p + test$rf.p)/3
+  out <- subset(test, select = c(sftgcode, year, mkl.start.1, mean.p, threat.p, harff.p, rf.p, k))
+  return(out)
 }
 
-out <- rbind(predit(1), predit(2), predit(3), predit(4), predit(5), predit(6), predit(7), predit(8), predit(9), predit(10))
+# Run the function across the various splits for cross-validation
+out <- rbind(predit(1), predit(2), predit(3), predit(4), predit(5),
+  predit(6), predit(7), predit(8), predit(9), predit(10))
 
 # Distribution of AUC scores by fold
 fun.auc <- function(df, x) {
@@ -66,10 +70,7 @@ auctab <- as.data.frame(rbind(fun.auc(out, 1), fun.auc(out, 2), fun.auc(out, 3),
 
 ### PLOTS ###
 
-# Set working directory
-setwd("c:/users/jay/documents/ushmm/statrisk.replication/figs/")
-
-png(file = "cpg.statrisk2014.replication.val.auc.by.fold.png",
+png(file = "figs/cpg.statrisk2014.replication.val.auc.by.fold.png",
      width=12, height=12, units='cm', bg='white', res=150)
 par(mai=c(0.5,0.5,0.5,0.5))
 plot(density(auctab$mean), xlim=c(0.5,1), ylim=c(0,8), lwd = 2.5, main = "", col = "black",
@@ -102,7 +103,7 @@ rf.pred <- prediction(out$rf.p, out$mkl.start.1)
 rf.roc <- performance(rf.pred, "tpr", "fpr")
 rf.auc <- performance(rf.pred, measure = "auc")
 
-png(file = "cpg.statrisk.replication.val.roc.by.model.png",
+png(file = "figs/cpg.statrisk.replication.val.roc.by.model.png",
      width=12, height=12, units='cm', bg='white', res=150)
 plot(mean.roc, col = "black", lwd=2, add = FALSE)
 plot(threat.roc, col = "blue", add = TRUE)
