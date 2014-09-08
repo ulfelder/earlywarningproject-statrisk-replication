@@ -58,7 +58,7 @@ Of course, these scripts also depend on access to files (or, in a few cases, URL
 
 ### 2. Modeling
 
-The scripts for stage 2 (modeling) are listed below. **Users wishing to replicate or extend the risk assessments used by EWP may simply start with the "ewp.statrisk.data.transformed.csv" data set produced by "data.transformation.r" in stage 1 and then use these scripts.**
+The scripts for stage 2 (modeling) are listed below. **Users wishing to replicate or extend the risk assessments without replicating the data ingestion and transformation process may simply start with the "ewp.statrisk.data.transformed.csv" data set produced by "data.transformation.r" in stage 1 and then use these scripts.**
 
 * model.formulae.r
 * model.prediction.r
