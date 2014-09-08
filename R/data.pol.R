@@ -1,4 +1,4 @@
-# POLITY IV
+# POLITY IV (pol)
 # 2014-09-08
 
 # Source: Center for Systemic Peace (http://www.systemicpeace.org/inscrdata.html)
@@ -11,7 +11,7 @@ library(XLConnect)
 library(reshape)
 
 # Load data
-polity <- readWorksheetFromFile("c:/users/jay/documents/ushmm/statrisk.replication/data.in/p4v2013.xls", sheet=1)
+polity <- readWorksheetFromFile("data.in/p4v2013.xls", sheet=1)
 
 # Change country code variable name and correct a few codes to match PITF standard
 polity <- rename(polity, c(scode = "sftgcode"))
@@ -30,4 +30,4 @@ polity <- subset(polity, year >= 1945, select = c(3,5,8:21))
 names(polity) <- c(names(polity)[1:2], paste0("pol.", names(polity)[3:length(names(polity))]))
 
 # Write it out
-write.csv(polity, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/pol.csv", row.names = FALSE)
+write.csv(polity, "data.out/pol.csv", row.names = FALSE)
