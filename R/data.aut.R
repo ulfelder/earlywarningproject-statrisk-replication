@@ -9,11 +9,10 @@ rm(list=ls(all=TRUE))
 # Load required packages and functions
 library(foreign)
 library(DataCombine)
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.pitfcodeit.r")
 
 # Ingest the data
-aut <- read.dta("c:/users/jay/documents/ushmm/statrisk.replication/data.in/gwftscs.dta",
-  convert.factors = FALSE, convert.underscore = TRUE)
+aut <- read.dta("data.in/gwftscs.dta", convert.factors = FALSE, convert.underscore = TRUE)
 
 # Change names to get right prefix
 names(aut) <- c(names(aut)[1:2], "country", gsub("gwf", "aut", x = names(aut)[4:length(names(aut))], fixed = TRUE) )
@@ -26,4 +25,4 @@ aut$cowcode <- aut$country <- NULL
 aut <- MoveFront(aut, c("sftgcode", "year"))
 
 # Write it out
-write.csv(aut, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/aut.csv", row.names = FALSE)
+write.csv(aut, "data.out/aut.csv", row.names = FALSE)
