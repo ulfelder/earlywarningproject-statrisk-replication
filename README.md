@@ -65,7 +65,7 @@ The scripts for stage 2 (modeling) are listed below. **Users wishing to replicat
 * model.plots.r
 * model.validation.r
 
-The "model.formulae.r" script creates the formula objects used by both of the other scripts. It does not have to be run directly, but it does need to be in the appropriate directory so that "model.prediction.r" and "model.validation.r" can call it via the 'source' command.
+The "model.formulae.r" script creates the formula objects used by the validation and prediction scripts. It does not have to be run directly, but it does need to be in the appropriate directory so that "model.prediction.r" and "model.validation.r" can call it via the 'source' command.
 
 The "model.prediction.r" script estimates models from the historical data and then applies them to the latest available observations of all of the features/independent variables involved for all countries to generate current risk assessments. NOTE: Values for a few missing observations are hard-coded within this script because the source data sets include no valid observations for that variable for that country, or because the most recent observation available is from many years ago. When this script is used in future years to generate current risk assessments, you should check to see if that has changed or update the hard-coded values if possible. Additional hard-codes or related solutions may also be required if sources fail to update in general or for specific cases. See the notes at the top of the script for more information.
 
