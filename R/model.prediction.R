@@ -4,18 +4,15 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
-# Load all required packages
+# Load required packages
 library(randomForest)
 library(DataCombine)
 
-# Set working directory
-setwd("c:/users/jay/documents/ushmm/statrisk.replication/data.out/")
-
 # Load the compiled and transformed data
-dat <- read.csv("ewp.statrisk.data.transformed.csv")
+dat <- read.csv("data.out/ewp.statrisk.data.transformed.csv")
 
 # Get model formulae
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/model.formulae.r")
+source("r/model.formulae.r")
 
 ####################################
 # Model Estimation
@@ -64,7 +61,7 @@ pull <- function(i) {
   return(xi)
 }
 
-# Do each so you can inspect for missing
+# Do each so you can easily inspect each object for missing values if needed
 AFG <- pull("AFG")
 ALB <- pull("ALB")
 ALG <- pull("ALG")
@@ -228,13 +225,13 @@ YEM <- pull("YEM")
 ZAM <- pull("ZAM")
 ZIM <- pull("ZIM")
 
-# Hard code trade openness for IRQ and PRK from CIA World Factbook
+# Hard code a few missing values, including trade openness for IRQ and PRK and GDP growth for PRK, based
+# on data reported in CIA World Factbook
 IRQ$wdi.trade.ln <- log( 100 * ( (92.0 + 66.6) / 248.0 ))
 PRK$wdi.trade.ln <- log( 100 * ( (4.0 + 4.8) / 40.0 ))
-
-# Hard code growth for PRK from CIA World Factbook
 PRK$gdppcgrow.sr <- sqrt(abs(1.3))
 
+# Combine all of the country-level objects into one data frame
 latest <- rbind(AFG, ALB, ALG, ANG, ARG, ARM, AUL, AUS, AZE, BAH,
                 BNG, BLR, BEL, BEN, BHU, BOL, BOS, BOT, BRA, BUL,
                 BFO, BUI, CAM, CAO, CAN, CEN, CHA, CHL, CHN, COL,
@@ -253,7 +250,7 @@ latest <- rbind(AFG, ALB, ALG, ANG, ARG, ARM, AUL, AUS, AZE, BAH,
                 UGA, UKR, UAE, UKG, USA, URU, UZB, VEN, VIE, YEM,
                 ZAM, ZIM)
 
-# Function to get predictions from data frame
+# A function to get predictions from a data frame with the variables in model.formulae.r
 forecast <- function(df) {
   df$coup.p <- predict(coup, newdata = df, type = "response", na.action = na.exclude)
   df$cwar.p <- predict(cwar, newdata = df, type = "response", na.action = na.exclude)
@@ -266,7 +263,12 @@ forecast <- function(df) {
   return(df)
 }
 
-# Apply function to latest available data to get country forecasts
+# Apply that function to latest available data to get country forecasts. NOTE: If this produced an error
+# message about the number of rows not matching, it means there are still some missing values in 'latest'.
+# The simplest way to spot those missing values is to call fix(latest) and scroll around the table in search
+# of NAs. Every NA needs to be addressed for this function to work. In future updates, some missing values
+# may best be addressed at the data ingestion stage (where the 'data.[prefix].r' scripts work, but the odd
+# case can also be addressed by adding a line above to hard code the relevant input if need be.
 newcast <- forecast(latest)
 
 # Create variable identifying year to which forecasts apply (last year in original data plus 1)
@@ -279,4 +281,4 @@ newcast <- MoveFront(newcast, c("country", "sftgcode", "forecast.year", "mean.p"
 newcast <- newcast[order(-newcast$mean.p),]
 
 # Write it out
-write.csv(newcast, "ewp.forecasts.csv", row.names = FALSE)
+write.csv(newcast, "data.out/ewp.forecasts.csv", row.names = FALSE)
