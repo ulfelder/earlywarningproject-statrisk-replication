@@ -10,7 +10,7 @@ rm(list=ls(all=TRUE))
 library(XLConnect)
 
 # Load raw data
-elc <- readWorksheetFromFile("c:/users/jay/documents/ushmm/statrisk.replication/data.in/elc2013.xls", sheet=1)
+elc <- readWorksheetFromFile("data.in/elc2013.xls", sheet=1)
 names(elc) <- c("sftgcode", "year", "elceleth", "elceliti")
 elc$sftgcode <- as.character(elc$sftgcode)
 
@@ -30,4 +30,4 @@ USA <- data.frame(rep("USA", times = max(elc$year) - min(elc$year) + 1), seq(min
 names(USA) <- names(elc)
 elc <- rbind(elc, USA)
 
-write.csv(elc, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/elc.csv", row.names=FALSE)
+write.csv(elc, "data.out/elc.csv", row.names=FALSE)
