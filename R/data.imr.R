@@ -7,11 +7,11 @@
 rm(list=ls(all=TRUE))
 
 # Load required packages and functions
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
 
 # Load file
-imrates <- read.csv("c:/users/jay/documents/ushmm/statrisk.replication/data.in/pitf.csv")
+imrates <- read.csv("data.in/pitf.csv")
 
 # Reduce file and clean it up
 imrates <- imrates[,1:4]
@@ -33,4 +33,4 @@ rack$imr.raw[rack$sftgcode=="USA"] <- rack$imr.raw[rack$sftgcode=="CAN"]
 rack$imr.normed[rack$sftgcode=="USA"] <- rack$imr.normed[rack$sftgcode=="CAN"]
 
 # Write it out
-write.csv(rack, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/imr.csv", row.names = FALSE)
+write.csv(rack, "data.out/imr.csv", row.names = FALSE)
