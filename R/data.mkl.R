@@ -2,11 +2,16 @@
 # Jay Ulfelder
 # 2014-09-02
 
+# This script creates a country-year data set that spans the period 1945-2013. It is based on the data set
+# described in Ulfelder and Valentino (2008) (http://ssrn.com/abstract=1703426_). I am solely responsible for
+# updates for the years since 2006.
+
+# Clear workspace
 rm(list=ls(all=TRUE)) 
 
 # Load required functions
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.countryyearrackit.r")
-source("c:/users/jay/documents/ushmm/statrisk.replication/r/f.pitfcodeit.r")
+source("r/f.countryyearrackit.r")
+source("r/f.pitfcodeit.r")
 
 # Create rack of names and years, starting in 1945, ending in 2013, with PITF codes
 rack <- countryyearrackit(1945, 2013)
@@ -16,7 +21,7 @@ rack <- pitfcodeit(rack, "country")
 rack$mkl.start <- 0       # Onset of any new episodes during year
 rack$mkl.end <- 0         # End of any mkl.ongoing episodes during year
 rack$mkl.ongoing <- 0     # Any mkl.ongoing episodes during year
-rack$mkl.type <- 0        # Context in which new episode started: 1 = civil war, 2 = uprising, 3 = repression, 4 = other
+rack$mkl.type <- 0        # Context in which new episode started: 1=civil war, 2=uprising, 3=repression, 4 other
 rack$mkl.ever <- 0        # Any episodes in the country since 1945
 
 # Bulgaria, 1944-1956 (repression)
@@ -829,4 +834,4 @@ rack <- subset(rack, select = c(12, 2, 13:17))
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Write out the file.
-write.csv(rack, "c:/users/jay/documents/ushmm/statrisk.replication/data.out/mkl.csv", row.names = FALSE)
+write.csv(rack, "data.out/mkl.csv", row.names = FALSE)
