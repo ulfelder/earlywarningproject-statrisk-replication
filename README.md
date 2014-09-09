@@ -34,7 +34,7 @@ The scripts for stage 1 (data) are listed below. The root part of each script's 
 
 The order in which these scripts are run does not matter, with the important exception that "data.transformation.r" depends on all of the others and therefore must be run last. It ingests and merges the files created by all of the other scripts and then performs certain transformations before outputting the results to \data.out in a .csv called "ewp.statrisk.data.transformed.csv".
 
-The "data.dictionary.r" script is optional. It creates a data dictionary for the merged and transformed data set in the form of a .tex file that is written to \data.out. You can also browse and search the script itself for information on specific variables and the sources.
+The "data.dictionary.r" script is optional. It creates a data dictionary for the merged and transformed data set in the form of a .tex file that is written to \data.out. You can also browse and search the script itself for information on specific variables and the sources. **A PDF of the data dictionary can be found in the \data.out folder ([here](https://github.com/ulfelder/earlywarningproject-statrisk-replication/blob/master/data.out/EWP%20Data%20Dictionary%2020140909.pdf)).**
 
 * data.aut.r
 * data.cmm.r
