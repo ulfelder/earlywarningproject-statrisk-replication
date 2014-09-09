@@ -32,6 +32,8 @@ dat <- read.csv("dat.out/ewp.statrisk.data.transformed.csv")
 # hum = Latent Human Rights Protection Scores (http://humanrightsscores.org/)
 # fiw = Freedom House's Freedom in the World
 # aut = Authoritarian Regimes Dataset by Geddes, Wright, and Frantz (http://sites.psu.edu/dictators/)
+# 
+# NOTE: Per Hmisc manual, to get this to display properly in LaTeX, you need to have the setspace and relsize packages installed
 
 #################################
 # Add labels
