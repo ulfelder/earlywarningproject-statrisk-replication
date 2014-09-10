@@ -6,13 +6,16 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(foreign)
 library(DataCombine)
-source("r/f.pitfcodeit.r")
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Ingest the data
-aut <- read.dta("data.in/gwftscs.dta", convert.factors = FALSE, convert.underscore = TRUE)
+aut <- read.dta(paste0(wd, "/data.in/gwftscs.dta"), convert.factors = FALSE, convert.underscore = TRUE)
 
 # Change names to get right prefix
 names(aut) <- c(names(aut)[1:2], "country", gsub("gwf", "aut", x = names(aut)[4:length(names(aut))], fixed = TRUE) )
@@ -25,4 +28,4 @@ aut$cowcode <- aut$country <- NULL
 aut <- MoveFront(aut, c("sftgcode", "year"))
 
 # Write it out
-write.csv(aut, "data.out/aut.csv", row.names = FALSE)
+write.csv(aut, paste0(wd, "/data.out/aut.csv"), row.names = FALSE)

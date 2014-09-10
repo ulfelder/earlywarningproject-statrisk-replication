@@ -1,12 +1,18 @@
 # LABELING AND SUMMARIZING USHMM DATA IN HMISC
 # 2014-09-06
 
+# Clear the workspace
+rm(list=ls(all=TRUE))
+
 # Load required packages
 library(Hmisc)
 library(DataCombine)
 
+# Get working directory
+wd <- getwd()
+
 # Load the transformed data
-dat <- read.csv("dat.out/ewp.statrisk.data.transformed.csv")
+dat <- read.csv(paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"))
 
 # NOTES ON DATA
 #
@@ -47,11 +53,11 @@ label(dat$postcw) <- "Post-Cold War period (year >= 1991)"
 label(dat$yrborn) <- "Country 'birth' year"
 label(dat$yrdied) <- "Country 'death' year"
 label(dat$countryage) <-"Country age"
-label(dat$reg.eap) <- "US Dept State region: East Asia & Pacific"
+label(dat$reg.eap) <- "US Dept State region: East Asia and Pacific"
 label(dat$reg.afr) <- "US Dept State region: Sub-Saharan Africa"
-label(dat$reg.eur) <- "US Dept State region: Europe & Eurasia"
-label(dat$reg.mna) <- "US Dept State region: Middle East & North Africa"
-label(dat$reg.sca) <- "US Dept State region: South & Central Asia"
+label(dat$reg.eur) <- "US Dept State region: Europe and Eurasia"
+label(dat$reg.mna) <- "US Dept State region: Middle East and North Africa"
+label(dat$reg.sca) <- "US Dept State region: South and Central Asia"
 label(dat$reg.amr) <- "US Dept State region: Americas"
 label(dat$dosreg) <- "US Dept State region"
 
@@ -93,8 +99,8 @@ label(dat$cmm.fail) <- "Failed coups (CSP), count"
 label(dat$cmm.plot) <- "Alleged coup plots (CSP), count"
 label(dat$cmm.rumr) <- "Rumored coups (CSP), count"
 
-label(dat$cpt.succ) <- "Successful coups (P&T), count"
-label(dat$cpt.fail) <- "Failed coups (P&T), count"
+label(dat$cpt.succ) <- "Successful coups (P and T), count"
+label(dat$cpt.fail) <- "Failed coups (P and T), count"
 
 label(dat$pol.democ) <- "Democracy score"
 label(dat$pol.autoc) <- "Autocracy score"
@@ -256,7 +262,7 @@ label(dat$hum.hathaway) <- "5-category, factor variable for torture per Hathaway
 label(dat$hum.itt) <- "6-category, factor variable for torture per ITT dataset"
 label(dat$hum.genocide) <- "Binary variable for geno-politicide per Harff (2003)"
 label(dat$hum.rummel) <- "Binary variable for politicide/genocide per Rummel"
-label(dat$hum.mass.repress) <- "Binary variable for massive repressive events per Harff & Gurr (1988)"
+label(dat$hum.mass.repress) <- "Binary variable for massive repressive events per Harff  and  Gurr (1988)"
 label(dat$hum.executions) <- "Binary variable from World Handbook of Political Indicators"
 label(dat$hum.killing) <- "Binary version based on the UCDP one sided violence count data"
 label(dat$hum.additive) <- "CIRI Physical Integrity scale"
@@ -269,15 +275,15 @@ label(dat$countryage.ln) <- "Country age, logged"
 label(dat$wdi.popsize.ln) <- "Population size, logged"      
 label(dat$wdi.trade.ln) <- "Trade openness, logged"        
 dat$pol.cat.fl <- factor(dat$pol.cat.fl, levels = c(1,2,3,7), labels = c("autocracy", "anocracy", "democracy", "other"))
-label(dat$pol.cat.fl) <- "Political regime type per Fearon & Laitin (2003)"
+label(dat$pol.cat.fl) <- "Political regime type per Fearon  and  Laitin (2003)"
 dat$pol.cat.fl <- factor(dat$pol.cat.pitf, levels = c("A/F", "A/P", "D/fact", "D/P", "D/F", "other"),
   labels = c("Full autocracy", "Partial autocracy", "Partial democracy w/factionalism",
   "Partial democracy w/o factionalism", "Full democracy", "Other"))
 label(dat$pol.cat.pitf) <- "Political regime type per PITF (Goldstone et al. 2010)"
-label(dat$pol.cat.fl1) <- "Autocracy (F&L)"        
-label(dat$pol.cat.fl2) <- "Anocracy (F&L)"         
-label(dat$pol.cat.fl3) <- "Democracy (F&L)"         
-label(dat$pol.cat.fl7) <- "Other (F&L)"         
+label(dat$pol.cat.fl1) <- "Autocracy (F and L)"        
+label(dat$pol.cat.fl2) <- "Anocracy (F and L)"         
+label(dat$pol.cat.fl3) <- "Democracy (F and L)"         
+label(dat$pol.cat.fl7) <- "Other (F and L)"         
 label(dat$pol.cat.pitf1) <- "Full autocracy (PITF)"       
 label(dat$pol.cat.pitf2) <- "Partial autocracy (PITF)"       
 label(dat$pol.cat.pitf3) <- "Partial democracy w/factionalism (PITF)"       
@@ -324,10 +330,10 @@ label(dat$mev.regac.ln) <- "Scalar measure of armed conflict in geographic regio
 label(dat$mev.civtotc) <- "Any violent civil conflict (yes/no)"         
 label(dat$mev.civtot.ln) <- "Scale of violent civil conflict, logged"       
 label(dat$imf.gdppcgrow) <- "Annual % change in GDP per capita, constant local currency"       
-label(dat$gdppcgrow) <- "Annual % change in GDP per capita, meld of IMF & WDI"          
-label(dat$gdppcgrow.sr) <- "Annual % change in GDP per capita, meld of IMF & WDI, square root"        
+label(dat$gdppcgrow) <- "Annual % change in GDP per capita, meld of IMF  and  WDI"          
+label(dat$gdppcgrow.sr) <- "Annual % change in GDP per capita, meld of IMF  and  WDI, square root"        
 label(dat$slowgrowth) <- "Indicator of annual change in GDP per capita under 2%" 
 
 # Create LaTeX file with data names, labels, and summaries
 descrip <- describe(dat, digits = 3)
-latex(descrip, file = "dat.out/ewp.statrisk.data.dictionary.tex")
+latex(descrip, file = paste0(wd, "/data.out/ewp.statrisk.data.dictionary.tex"))

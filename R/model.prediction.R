@@ -4,21 +4,24 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages
 library(randomForest)
 library(DataCombine)
 
 # Load the compiled and transformed data
-dat <- read.csv("data.out/ewp.statrisk.data.transformed.csv")
+dat <- read.csv(paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"))
 
 # Get model formulae
-source("r/model.formulae.r")
+source(paste0(wd, "/r/model.formulae.r"))
 
 ####################################
 # Model Estimation
 ####################################
 
-# Remove most recent two years to avoid treating in-sample estimates as forecasts in cases with missing recent data
+# Remove most recent 2 yrs to avoid treating in-sample ests as forecasts in cases with missing recent data
 subdat <- subset(dat, year < as.numeric(substr(as.Date(Sys.Date()),1,4)) - 2)
 
 coup <- glm(f.coup, family = binomial, data = subdat, na.action = na.exclude)
@@ -281,4 +284,4 @@ newcast <- MoveFront(newcast, c("country", "sftgcode", "forecast.year", "mean.p"
 newcast <- newcast[order(-newcast$mean.p),]
 
 # Write it out
-write.csv(newcast, "data.out/ewp.forecasts.csv", row.names = FALSE)
+write.csv(newcast, file = paste0(wd, "/data.out/ewp.forecasts.csv"), row.names = FALSE)

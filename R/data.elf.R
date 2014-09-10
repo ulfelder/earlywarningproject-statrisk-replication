@@ -7,13 +7,16 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(xlsx)
-source("r/f.countryyearrackit.r")
-source("r/f.pitfcodeit.r")
+source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Ingest data
-elf <- read.xlsx("data.in/fractionalization.xls",
+elf <- read.xlsx(paste0(wd, "/data.in/fractionalization.xls"),
   sheetName = "Fractionalization Measures", startRow = 4, endRow = 218, header = FALSE,
   colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric"))
 
@@ -49,11 +52,8 @@ elf$elf.ethnic <- as.numeric(elf$elf.ethnic)
 elf$elf.language <- as.numeric(elf$elf.language)
 elf$elf.religion <- as.numeric(elf$elf.religion)
 
-# Put into country-year rack
-rack <- countryyearrackit(1945,2013) # Arbitrarily picking 1950 as start, last full year as end
-rack <- pitfcodeit(rack, "country")
-rack <- subset(rack, select=c(sftgcode, year))
-rack <- merge(rack, elf, all.x = TRUE)
+# Put into country-year rack with 1950 as arbitrary start, last full year as end
+rack <- merge(subset(pitfcodeit(countryyearrackit(1945,2013), "country"), select=c(sftgcode, year)), elf, all.x = TRUE)
 rack <- rack[order(rack$sftgcode, rack$year),]
 
-write.csv(rack, "data.out/elf.csv", row.names = FALSE)
+write.csv(rack, file = paste0(wd, "/data.out/elf.csv"), row.names = FALSE)

@@ -9,13 +9,15 @@
 # Clear workspace
 rm(list=ls(all=TRUE)) 
 
+# Get working directory
+wd <- getwd()
+
 # Load required functions
-source("r/f.countryyearrackit.r")
-source("r/f.pitfcodeit.r")
+source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Create rack of names and years, starting in 1945, ending in 2013, with PITF codes
-rack <- countryyearrackit(1945, 2013)
-rack <- pitfcodeit(rack, "country")
+rack <- pitfcodeit(countryyearrackit(1945, 2013), "country")
 
 # Create columns for new variables with zeros
 rack$mkl.start <- 0       # Onset of any new episodes during year
@@ -834,4 +836,4 @@ rack <- subset(rack, select = c(12, 2, 13:17))
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Write out the file.
-write.csv(rack, "data.out/mkl.csv", row.names = FALSE)
+write.csv(rack, file = paste0(wd, "/data.out/mkl.csv"), row.names = FALSE)

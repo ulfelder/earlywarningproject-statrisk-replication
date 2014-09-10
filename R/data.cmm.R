@@ -6,14 +6,17 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(XLConnect)
 library(reshape)
-source("r/f.pitfcodeit.r")
-source("r/f.countryyearrackit.r")
+source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Get the data, which is an event file (one row per event), not country-year
-csp <- readWorksheetFromFile("data.in/cspcoupslist2013.xls", sheet=1)
+csp <- readWorksheetFromFile(paste0(wd, "/data.in/cspcoupslist2013.xls"), sheet=1)
 
 # Cut down to the essentials
 csp <- subset(csp, is.na(scode)==FALSE, select=c(scode, year, success))
@@ -39,10 +42,8 @@ names(coup.f) <- c("sftgcode", "year", "cmm.fail")
 names(coup.p) <- c("sftgcode", "year", "cmm.plot")
 names(coup.r) <- c("sftgcode", "year", "cmm.rumr")
 
-# Generate a complete country-year rectangular file for CSP period of observation (1946-2013)
-rack <- countryyearrackit(1946,2013)  # Need to end at last fully observed year
-rack <- pitfcodeit(rack, "country")  # Add PITF codes
-rack <- subset(rack, select=c(sftgcode, year))
+# Generate a complete country-year rectangular file for CSP period of observation (1946-2013) w/PITF codes
+rack <- subset(pitfcodeit(countryyearrackit(1946,2013), "country"), select=c(sftgcode, year))
 
 # Merge the CSP country-year sums with that larger file
 csp.tscs <- merge(rack, coup.s, all.x = TRUE)
@@ -58,4 +59,4 @@ csp.tscs[is.na(csp.tscs)] <- 0
 csp.tscs <- csp.tscs[order(csp.tscs$sftgcode, csp.tscs$year),]
 
 # Write it out
-write.csv(csp.tscs, "data.out/cmm.csv", row.names = FALSE)
+write.csv(csp.tscs, file = paste0(wd, "/data.out/cmm.csv"), row.names = FALSE)

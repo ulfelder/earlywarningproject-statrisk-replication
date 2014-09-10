@@ -6,10 +6,13 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(reshape)
-source("r/f.pitfcodeit.r")
-source("r/f.countryyearrackit.r")
+source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Ingest raw data, which is event file (one row per event), not country-year, from URL
 cpt <- read.delim("http://www.uky.edu/~clthyn2/coup_data/powell_thyne_coups_final.txt")
@@ -32,10 +35,8 @@ pt.f <- melt(ptsum.f)
 names(pt.s) <- c("sftgcode", "year", "cpt.succ")
 names(pt.f) <- c("sftgcode", "year", "cpt.fail")
 
-# Generate a complete country-year rectangular file for P&T period of observation (1950-)
-rack <- countryyearrackit(1950,2013)  # Need to end at last fully observed year
-rack <- pitfcodeit(rack, "country")  # Add PITF codes
-rack <- subset(rack, select=c(sftgcode, year))
+# Generate a complete country-year rectangular file for P&T period of observation (1950-2013+)
+rack <- subset(pitfcodeit(countryyearrackit(1950,2013), "country"), select=c(sftgcode, year))
 
 # Merge the counts with the larger file
 pt.tscs <- merge(rack, pt.s, all.x = TRUE)
@@ -47,4 +48,4 @@ pt.tscs <- pt.tscs[order(pt.tscs$sftgcode, pt.tscs$year),]
 pt.tscs[is.na(pt.tscs)] <- 0
 
 # Write it out
-write.csv(pt.tscs, "data.out/cpt.csv", row.names = FALSE)
+write.csv(pt.tscs, file = paste0(wd, "/data.out/cpt.csv"), row.names = FALSE)

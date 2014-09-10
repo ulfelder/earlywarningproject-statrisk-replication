@@ -10,10 +10,13 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(WDI)
-source("r/f.countryyearrackit.r")
-source("r/f.pitfcodeit.r")
+source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 wdilist <- c("NE.TRD.GNFS.ZS",     # Trade (% of GDP)
              "NY.GDP.PCAP.PP.KD",  # GDP per capita, PPP (constant 2005 intl $)
@@ -79,6 +82,8 @@ names(wdi) <- c("sftgcode", "year",
   "wdi.netusers",
   "wdi.imrate")
 
-# Reorder for easier review and write out as .csv
+# Reorder for easier review
 wdi <- wdi[order(wdi$sftgcode, wdi$year),]
-write.csv(wdi, "data.out/wdi.csv", row.names=FALSE)
+
+# Write it out
+write.csv(wdi, file = paste0(wd, "/data.out/wdi.csv"), row.names = FALSE)

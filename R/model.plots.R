@@ -4,12 +4,15 @@
 # Clear the workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages
 library(rworldmap)
 library(Hmisc)
 
-# Get the data and fix any formatting that needs fixing
-newcast <- read.csv("data.out/ewp.forecasts.csv")
+# Get the data and fix any formatting of country name to character
+newcast <- read.csv(paste0(wd, "/data.out/ewp.forecasts.csv"))
 newcast$country <- as.character(newcast$country)
 
 ### MAPS ###
@@ -25,7 +28,7 @@ map2014 <- joinCountryData2Map(newcast, nameJoinColumn = "country", joinCode = "
 # Map the scores
 date <- as.Date(Sys.Date())
 datestring <- paste(substr(date,1,4), substr(date,6,7), substr(date,9,10), sep="")
-mapname <- paste("figs/heatmap", datestring, "png", sep = ".")
+mapname <- paste0(wd, "/figs/heatmap.", datestring, ".png")
 png(mapname, width=800, height=450, bg="white")
 par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
 map.score <- mapCountryData(map2014,
@@ -41,7 +44,7 @@ dev.off()
 # Map with color scaled to distance
 date <- as.Date(Sys.Date())
 datestring <- paste(substr(date,1,4), substr(date,6,7), substr(date,9,10), sep="")
-mapname <- paste("figs/scaledmap", datestring, "png", sep = ".")
+mapname <- paste0(wd, "/figs/scaledmap.", datestring, ".png")
 grayscale <- c("gray95", "gray91", "gray83", "gray67", "gray35")
 cats <- c(0,0.01,0.02,0.04,0.08,0.16)
 cols <- c("lightgoldenrod", "yellow", "orange", "orangered", "orangered4")
@@ -66,7 +69,7 @@ newcast <- newcast[order(-newcast$mean.p),]
 subcast <- newcast[1:30,]
 date <- as.Date(Sys.Date())
 datestring <- paste(substr(date,1,4), substr(date,6,7), substr(date,9,10), sep="")
-dotname <- paste("figs/dotplot", datestring, "png", sep = ".")
+dotname <- paste0(wd, "/figs/dotplot.", datestring, ".png")
 png(file = dotname, width=6, height=6, unit = "in", bg="white", res=150)
 par(mai=c(0.5,0.25,0.25,0.25))
 dotchart2(subcast$rf.p, labels=subcast$country, xlim = c(0,0.35),

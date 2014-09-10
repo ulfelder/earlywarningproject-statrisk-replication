@@ -5,16 +5,19 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load required packages and functions
 library(reshape)
-source("r/f.pitfcodeit.r")
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # 2013 updates from IMF
 # Source: http://www.imf.org/external/pubs/ft/weo/2014/01/weodata/index.aspx
 # Download "By countries" > All countries > Continue > 
 # [check] Gross domestic product per capita, constant prices (national currency) > 
 # [start year -> 1980] [end year -> 2013] [uncheck] Append country/series-specific notes > Prepare report
-weo2013 <- read.delim("ata.in/imfgdppc.aspx")
+weo2013 <- read.delim(paste0(wd, "/data.in/imfgdppc.aspx"))
 weo2013$g2013 <- as.numeric(gsub(",", "", as.character(weo2013$X2013)))
 weo2013$g2012 <- as.numeric(gsub(",", "", as.character(weo2013$X2012)))
 weo2013$g2011 <- as.numeric(gsub(",", "", as.character(weo2013$X2011)))
@@ -52,7 +55,7 @@ weo2013$g1980 <- as.numeric(gsub(",", "", as.character(weo2013$X1980)))
 weo2013 <- subset(weo2013, select=c(1,40:73))
 weomelt <- melt(weo2013)
 names(weomelt) <- c("country", "gyear", "imf.gdppc")
-weomelt$year <- as.numeric(substr( as.character(weomelt$gyear),2,5  ) )
+weomelt$year <- as.numeric(substr(as.character(weomelt$gyear),2,5))
 weomelt$gyear <- NULL
 weomelt$country <- as.character(weomelt$country)
 weomelt <- pitfcodeit(weomelt, "country")
@@ -62,4 +65,4 @@ weomelt <- subset(weomelt, select=c(sftgcode, year, imf.gdppc))
 weomelt <- weomelt[order(weomelt$sftgcode, weomelt$year),]
 
 # Write it out
-write.csv(weomelt, "data.out/imf.csv", row.names = FALSE)
+write.csv(weomelt, file = paste0(wd, "/data.out/imf.csv"), row.names = FALSE)

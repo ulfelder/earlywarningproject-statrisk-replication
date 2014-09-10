@@ -4,6 +4,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load all required packages
 library(caret)
 library(randomForest)
@@ -11,10 +14,10 @@ library(verification)
 library(ROCR)
 
 # Load the merged data
-dat <- read.csv("data.out/ewp.statrisk.data.transformed.csv")
+dat <- read.csv(paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"))
 
 # Load the model formulae
-source("r/model.formulae.r")
+source(paste0(wd, "/r/model.formulae.r"))
 
 #############################
 # Model Validation
@@ -70,7 +73,8 @@ auctab <- as.data.frame(rbind(fun.auc(out, 1), fun.auc(out, 2), fun.auc(out, 3),
 
 ### PLOTS ###
 
-png(file = "figs/cpg.statrisk2014.replication.val.auc.by.fold.png",
+# Density plot of AUC by fold by model
+png(file = paste0(wd, "/figs/cpg.statrisk2014.replication.val.auc.by.fold.png"),
      width=12, height=12, units='cm', bg='white', res=150)
 par(mai=c(0.5,0.5,0.5,0.5))
 plot(density(auctab$mean), xlim=c(0.5,1), ylim=c(0,8), lwd = 2.5, main = "", col = "black",
@@ -103,7 +107,7 @@ rf.pred <- prediction(out$rf.p, out$mkl.start.1)
 rf.roc <- performance(rf.pred, "tpr", "fpr")
 rf.auc <- performance(rf.pred, measure = "auc")
 
-png(file = "figs/cpg.statrisk.replication.val.roc.by.model.png",
+png(file = paste0(wd, "/figs/cpg.statrisk.replication.val.roc.by.model.png"),
      width=12, height=12, units='cm', bg='white', res=150)
 plot(mean.roc, col = "black", lwd=2, add = FALSE)
 plot(threat.roc, col = "blue", add = TRUE)

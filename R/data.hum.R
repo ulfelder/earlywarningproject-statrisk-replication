@@ -6,11 +6,15 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+# Get working directory
+wd <- getwd()
+
 # Load requisite packages and functions
-source("r/f.pitfcodeit.r")
+library(DataCombine)
+source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Ingest data
-hum <- read.csv("data.in/HumanRightsProtectionScores_v2.03.csv")
+hum <- read.csv(paste0(wd, "/data.in/HumanRightsProtectionScores_v2.03.csv"))
 
 # Add PITF country codes
 hum$country <- as.character(hum$NAME)
@@ -35,4 +39,4 @@ hum$hum.latentmean <- round(hum$hum.latentmean, 2)
 hum$hum.latentsd <- round(hum$hum.latentsd, 2)
 
 # Write out
-write.csv(hum, "data.out/hum.csv", row.names = FALSE)
+write.csv(hum, file = paste0(wd, "/data.out/hum.csv"), row.names = FALSE)
