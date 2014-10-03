@@ -7,6 +7,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -17,7 +20,7 @@ source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Ingest and reshape data into desired country-year format
-fiw <- read.xlsx2(paste0(wd, "/data.in/Country Ratings and Status, 1973-2014 (FINAL).xls"),
+fiw <- read.xlsx2(paste0(wd, commandArgs(TRUE)[2]),
   sheetIndex = 1, startRow = 7, endRow = 212)
 fhyrs <- c(1972:1980,1982:2013)
 var_years <- expand.grid( x=c('PR', 'CL', 'Status'), y = fhyrs)
@@ -49,4 +52,4 @@ fiw$country <- NULL
 # Delete missing values
 fiw <- na.omit(fiw)
 
-write.csv(fiw, file = paste0(wd, "/data.out/fiw.csv"), row.names = FALSE)
+write.csv(fiw, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

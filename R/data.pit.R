@@ -11,17 +11,23 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
 # Load required packages and functions
 library(XLConnect)
 library(reshape)
+
+require(methods)
+
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Adverse regime change
-reg <- readWorksheetFromFile(paste0(wd, "/data.in/pitf adverse regime change 2013.xls"),
+reg <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]),
   sheet=1, startCol=1, endCol=13)
 reg <- subset(reg, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFAIL", "MAGCOL", "MAGVIOL", "MAGAVE"))
 reg$pit.reg.ongoing <- 1
@@ -32,7 +38,7 @@ reg$YRBEGIN <- reg$YREND <- NULL
 names(reg) <- c("sftgcode", "year", "pit.reg.magfail", "pit.reg.magcol", "pit.reg.magviol", "pit.reg.magave",
     "pit.reg.ongoing", "pit.reg.onset", "pit.reg.end", "pit.reg.dur")
 
-eth <- readWorksheetFromFile(paste0(wd, "/data.in/pitf ethnic war 2013.xls"),
+eth <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[3]),
   sheet=1, startCol=1, endCol=13)
 eth <- subset(eth, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFIGHT", "MAGFATAL", "MAGAREA", "AVEMAG"))
 eth$pit.eth.ongoing <- 1
@@ -76,7 +82,7 @@ ethc <- merge(ethc, ethdur)
 ethc$sftgcode <- as.character(ethc$sftgcode)
 eth <- na.omit(ethc)
 
-rev <- readWorksheetFromFile(paste0(wd, "/data.in/pitf revolutionary war 2013.xls"),
+rev <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[4]),
   sheet=1, startCol=1, endCol=13)
 rev <- subset(rev, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "MAGFIGHT", "MAGFATAL", "MAGAREA", "AVEMAG"))
 rev$pit.rev.ongoing <- 1
@@ -121,7 +127,7 @@ revc <- merge(revc, revdur)
 revc$sftgcode <- as.character(revc$sftgcode)
 rev <- na.omit(revc)
 
-gen <- readWorksheetFromFile(paste0(wd, "/data.in/pitf genopoliticide 2013.xls"),
+gen <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[5]),
   sheet = 1, startCol = 1, endCol = 10)
 gen <- subset(gen, select=c("SCODE", "YEAR", "YRBEGIN", "YREND", "DEATHMAG"))
 gen$pit.gen.ongoing <- 1
@@ -141,4 +147,4 @@ pitfps <- merge(pitfps, gen, all.x = TRUE)
 pitfps[is.na(pitfps)] <- 0
 pitfps <- pitfps[order(pitfps$sftgcode, pitfps$year),]
 
-write.csv(pitfps, paste0(wd, "/data.out/pit.csv"), row.names = FALSE)
+write.csv(pitfps, paste0(wd, commandArgs(TRUE)[6]), row.names = FALSE)

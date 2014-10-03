@@ -6,6 +6,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -14,7 +17,7 @@ source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Load file
-imrates <- read.csv(paste0(wd, "/data.in/pitf.csv"))
+imrates <- read.csv(paste0(wd, commandArgs(TRUE)[2]))
 
 # Reduce file and clean it up
 imrates <- imrates[,1:4]
@@ -34,4 +37,4 @@ rack$imr.raw[rack$sftgcode=="USA"] <- rack$imr.raw[rack$sftgcode=="CAN"]
 rack$imr.normed[rack$sftgcode=="USA"] <- rack$imr.normed[rack$sftgcode=="CAN"]
 
 # Write it out
-write.csv(rack, file = paste0(wd, "/data.out/imr.csv"), row.names = FALSE)
+write.csv(rack, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

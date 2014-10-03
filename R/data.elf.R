@@ -7,6 +7,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -16,7 +19,7 @@ source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Ingest data
-elf <- read.xlsx(paste0(wd, "/data.in/fractionalization.xls"),
+elf <- read.xlsx(paste0(wd, commandArgs(TRUE)[2]),
   sheetName = "Fractionalization Measures", startRow = 4, endRow = 218, header = FALSE,
   colClasses = c("character", "character", "numeric", "numeric", "numeric", "numeric"))
 
@@ -56,4 +59,4 @@ elf$elf.religion <- as.numeric(elf$elf.religion)
 rack <- merge(subset(pitfcodeit(countryyearrackit(1945,2013), "country"), select=c(sftgcode, year)), elf, all.x = TRUE)
 rack <- rack[order(rack$sftgcode, rack$year),]
 
-write.csv(rack, file = paste0(wd, "/data.out/elf.csv"), row.names = FALSE)
+write.csv(rack, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

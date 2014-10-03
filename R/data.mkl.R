@@ -9,6 +9,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE)) 
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -836,4 +839,4 @@ rack <- subset(rack, select = c(12, 2, 13:17))
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Write out the file.
-write.csv(rack, file = paste0(wd, "/data.out/mkl.csv"), row.names = FALSE)
+write.csv(rack, file = paste0(wd, commandArgs(TRUE)[2]), row.names = FALSE)

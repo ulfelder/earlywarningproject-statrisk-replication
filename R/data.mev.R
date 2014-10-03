@@ -6,6 +6,9 @@
 # Clear the workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -13,8 +16,10 @@ wd <- getwd()
 library(XLConnect)
 library(reshape)
 
+require(methods)
+
 # Load the MEPV data set
-mepv <- readWorksheetFromFile(paste0(wd, "/data.in/mepv2013.xls"), sheet=1)
+mepv <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)
 mepv$ccode <- mepv$country <- NULL
 mepv <- rename(mepv, c(scode="sftgcode"))
 
@@ -29,4 +34,4 @@ mepv$sftgcode[mepv$sftgcode=="SDN"] <- "SUD"
 names(mepv) <- c("sftgcode", "year", paste0("mev.", names(mepv)[3:length(names(mepv))]))
 
 # Write it out
-write.csv(mepv, file = paste0(wd, "/data.out/mev.csv"), row.names = FALSE)
+write.csv(mepv, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

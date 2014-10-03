@@ -6,6 +6,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -15,7 +18,7 @@ source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Ingest raw data, which is event file (one row per event), not country-year, from URL
-cpt <- read.delim("http://www.uky.edu/~clthyn2/coup_data/powell_thyne_coups_final.txt")
+cpt <- read.delim(commandArgs(TRUE)[2])
 cpt <- subset(cpt, select=c("country", "year", "coup"))
 
 # Create binary variables for success & failure of attempts from categorical variable in original
@@ -48,4 +51,4 @@ pt.tscs <- pt.tscs[order(pt.tscs$sftgcode, pt.tscs$year),]
 pt.tscs[is.na(pt.tscs)] <- 0
 
 # Write it out
-write.csv(pt.tscs, file = paste0(wd, "/data.out/cpt.csv"), row.names = FALSE)
+write.csv(pt.tscs, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

@@ -5,6 +5,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -17,7 +20,7 @@ source(paste0(wd, "/r/f.pitfcodeit.r"))
 # Download "By countries" > All countries > Continue > 
 # [check] Gross domestic product per capita, constant prices (national currency) > 
 # [start year -> 1980] [end year -> 2013] [uncheck] Append country/series-specific notes > Prepare report
-weo2013 <- read.delim(paste0(wd, "/data.in/imfgdppc.aspx"))
+weo2013 <- read.delim(paste0(wd, commandArgs(TRUE)[2]))
 weo2013$g2013 <- as.numeric(gsub(",", "", as.character(weo2013$X2013)))
 weo2013$g2012 <- as.numeric(gsub(",", "", as.character(weo2013$X2012)))
 weo2013$g2011 <- as.numeric(gsub(",", "", as.character(weo2013$X2011)))
@@ -65,4 +68,4 @@ weomelt <- subset(weomelt, select=c(sftgcode, year, imf.gdppc))
 weomelt <- weomelt[order(weomelt$sftgcode, weomelt$year),]
 
 # Write it out
-write.csv(weomelt, file = paste0(wd, "/data.out/imf.csv"), row.names = FALSE)
+write.csv(weomelt, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

@@ -6,17 +6,23 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
 # Load required packages and functions
 library(XLConnect)
 library(reshape)
+
+require(methods)
+
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Get the data, which is an event file (one row per event), not country-year
-csp <- readWorksheetFromFile(paste0(wd, "/data.in/cspcoupslist2013.xls"), sheet=1)
+csp <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)
 
 # Cut down to the essentials
 csp <- subset(csp, is.na(scode)==FALSE, select=c(scode, year, success))
@@ -59,4 +65,4 @@ csp.tscs[is.na(csp.tscs)] <- 0
 csp.tscs <- csp.tscs[order(csp.tscs$sftgcode, csp.tscs$year),]
 
 # Write it out
-write.csv(csp.tscs, file = paste0(wd, "/data.out/cmm.csv"), row.names = FALSE)
+write.csv(csp.tscs, file = paste0(wd, commandArgs(TRUE)[3]), row.names = FALSE)

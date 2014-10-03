@@ -10,6 +10,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -86,4 +89,4 @@ names(wdi) <- c("sftgcode", "year",
 wdi <- wdi[order(wdi$sftgcode, wdi$year),]
 
 # Write it out
-write.csv(wdi, file = paste0(wd, "/data.out/wdi.csv"), row.names = FALSE)
+write.csv(wdi, file = paste0(wd, commandArgs(TRUE)[2]), row.names = FALSE)

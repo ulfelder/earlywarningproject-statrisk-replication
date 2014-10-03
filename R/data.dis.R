@@ -6,16 +6,22 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
 # Load required packages and functions
 library(XLConnect)
+
+require(methods)
+
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Load the data
-dis <- readWorksheetFromFile(paste0(wd, "/data.in/diss2013.xls"), sheet=1)
+dis <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)
 
 # Append prefix to names
 names(dis) <- c("sftgcode", "year", paste0("dis.", names(dis)[3:length(names(dis))]))
@@ -28,4 +34,4 @@ rack <- merge(subset(pitfcodeit(countryyearrackit(min(dis$year), max(dis$year)),
 rack <- replace(rack, is.na(rack)==TRUE, 0)
 
 # Write it out
-write.csv(dis, file = paste0(wd, "/data.out/dis.csv"), row.names=FALSE)
+write.csv(dis, file = paste0(wd, commandArgs(TRUE)[3]), row.names=FALSE)

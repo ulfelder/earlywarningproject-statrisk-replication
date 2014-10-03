@@ -4,6 +4,9 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
@@ -16,22 +19,22 @@ source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Load the raw data sets
-mkl <- read.csv(paste0(wd, "/data.out/mkl.csv"))
-wdi <- read.csv(paste0(wd, "/data.out/wdi.csv"))
-cpt <- read.csv(paste0(wd, "/data.out/cpt.csv"))
-cmm <- read.csv(paste0(wd, "/data.out/cmm.csv"))
-pol <- read.csv(paste0(wd, "/data.out/pol.csv"))
-pit <- read.csv(paste0(wd, "/data.out/pit.csv"))
-mev <- read.csv(paste0(wd, "/data.out/mev.csv"))
-ios <- read.csv(paste0(wd, "/data.out/ios.csv"))
-imr <- read.csv(paste0(wd, "/data.out/imr.csv"))
-elc <- read.csv(paste0(wd, "/data.out/elc.csv"))
-dis <- read.csv(paste0(wd, "/data.out/dis.csv"))
-elf <- read.csv(paste0(wd, "/data.out/elf.csv"))
-imf <- read.csv(paste0(wd, "/data.out/imf.csv"))
-hum <- read.csv(paste0(wd, "/data.out/hum.csv"))
-fiw <- read.csv(paste0(wd, "/data.out/fiw.csv"))
-aut <- read.csv(paste0(wd, "/data.out/aut.csv"))
+mkl <- read.csv(paste0(wd, "/data_out/mkl.csv"))
+wdi <- read.csv(paste0(wd, "/data_out/wdi.csv"))
+cpt <- read.csv(paste0(wd, "/data_out/cpt.csv"))
+cmm <- read.csv(paste0(wd, "/data_out/cmm.csv"))
+pol <- read.csv(paste0(wd, "/data_out/pol.csv"))
+pit <- read.csv(paste0(wd, "/data_out/pit.csv"))
+mev <- read.csv(paste0(wd, "/data_out/mev.csv"))
+ios <- read.csv(paste0(wd, "/data_out/ios.csv"))
+imr <- read.csv(paste0(wd, "/data_out/imr.csv"))
+elc <- read.csv(paste0(wd, "/data_out/elc.csv"))
+dis <- read.csv(paste0(wd, "/data_out/dis.csv"))
+elf <- read.csv(paste0(wd, "/data_out/elf.csv"))
+imf <- read.csv(paste0(wd, "/data_out/imf.csv"))
+hum <- read.csv(paste0(wd, "/data_out/hum.csv"))
+fiw <- read.csv(paste0(wd, "/data_out/fiw.csv"))
+aut <- read.csv(paste0(wd, "/data_out/aut.csv"))
 
 # Create a country-year rack covering the requisite years
 rack <- pitfcodeit(countryyearrackit(1945,2013), "country")
@@ -58,7 +61,7 @@ dat <- merge(dat, hum, all.x = TRUE)
 dat <- dat[order(dat$country, dat$year),]
 
 # Write that data frame to .csv.
-write.csv(dat, file = paste0(wd,"/data.out/ewp.statrisk.data.raw.csv"), row.names = FALSE)
+write.csv(dat, file = paste0(wd,"/data_out/ewp.statrisk.data.raw.csv"), row.names = FALSE)
 
 # Remove all objects except dat from the workspace
 rm(list=setdiff(ls(), "dat"))
@@ -344,5 +347,8 @@ dat$slowgrowth[is.na(dat$wdi.gdppcgrow)==TRUE & is.na(dat$imf.gdppcgrow)==FALSE]
 # Put index variables at the front
 dat <- MoveFront(dat, Var = c("country", "sftgcode", "year"))
 
+# Get working directory
+wd <- getwd()
+
 # Write .csv
-write.csv(dat, file = paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"), row.names = FALSE)
+write.csv(dat, file = paste0(wd, "/data_out/ewp.statrisk.data.transformed.csv"), row.names = FALSE)

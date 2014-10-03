@@ -6,14 +6,19 @@
 # Clear workspace
 rm(list=ls(all=TRUE))
 
+#set working directory
+setwd(commandArgs(TRUE)[1])
+
 # Get working directory
 wd <- getwd()
 
 # Load required packages and functions
 library(XLConnect)
 
+require(methods)
+
 # Load raw data
-elc <- readWorksheetFromFile(paste0(wd, "/data.in/elc2013.xls"), sheet=1)
+elc <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)
 names(elc) <- c("sftgcode", "year", "elceleth", "elceliti")
 elc$sftgcode <- as.character(elc$sftgcode)
 
@@ -33,4 +38,4 @@ USA <- data.frame(rep("USA", times = max(elc$year) - min(elc$year) + 1), seq(min
 names(USA) <- names(elc)
 elc <- rbind(elc, USA)
 
-write.csv(elc, file = paste0(wd, "/data.out/elc.csv"), row.names=FALSE)
+write.csv(elc, file = paste0(wd, commandArgs(TRUE)[3]), row.names=FALSE)
