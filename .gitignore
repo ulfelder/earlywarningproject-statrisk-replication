@@ -3,3 +3,5 @@ data_in/*
 data_out/*
 dist/*
 build/*
+*.pyc
+
