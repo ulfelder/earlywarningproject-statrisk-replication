@@ -14,6 +14,10 @@ class Dataset(object):
     name = ''
     url = ''
     config = ConfigParser.RawConfigParser()
+    working_directory = ''
+    download_directory = ''
+    data_in_directory = ''
+    data_out_directory = ''
 
     def __init__(self):
         main_base = os.path.dirname(os.path.abspath(__file__))
@@ -24,6 +28,11 @@ class Dataset(object):
             path = root.split('/')
             for file in files:
                 self.config.readfp(open(os.path.join(root, file)))
+
+        self.working_directory = self.config.get('files_and_directories', 'working_directory')
+        self.download_directory = self.working_directory + "/" + self.config.get('files_and_directories', 'download_directory')
+        self.data_in_directory = self.working_directory + "/" + self.config.get('files_and_directories', 'data_in_directory')
+        self.data_out_directory = self.working_directory + "/" + self.config.get('files_and_directories', 'data_out_directory')
 
     @abstractmethod
     def download_data(self):

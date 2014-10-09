@@ -19,12 +19,17 @@ def cleanall():
 
     print('cleaning all working directories ...')
     # clean up all downloads, distributions, output csv files, etc.
-    folders = {config.get('files_and_directories', 'download_directory'),
-               config.get('files_and_directories', 'data_in_directory'),
-               config.get('files_and_directories', 'data_out_directory'),
-               config.get('files_and_directories', 'distribution_directory')}
+    working_directory = config.get('files_and_directories', 'working_directory')
+    download_directory = working_directory + "/" + config.get('files_and_directories', 'download_directory')
+    data_in_directory = working_directory + "/" + config.get('files_and_directories', 'data_in_directory')
+    data_out_directory = working_directory + "/" + config.get('files_and_directories', 'data_out_directory')
+    distribution_directory = working_directory + "/" + config.get('files_and_directories', 'distribution_directory')
+
+    folders = [download_directory, data_in_directory, data_out_directory, distribution_directory]
 
     for folder in folders:
+        if not os.path.exists(folder):
+            os.makedirs(folder)
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
             try:
@@ -33,6 +38,7 @@ def cleanall():
                 print(e)
 
     print('successfully cleaned working directories')
+
 
 def main():
     cleanall()

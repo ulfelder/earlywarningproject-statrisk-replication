@@ -19,12 +19,9 @@ class Pit(Dataset):
         response = urllib2.urlopen(self.url)
         print('download completed successfully')
 
-        download_directory = self.config.get('files_and_directories', 'download_directory')
-        data_in_directory = self.config.get('files_and_directories', 'data_in_directory')
-
         filename = self.config.get('pit', 'filename')
 
-        src_file = download_directory + "/" + filename
+        src_file = self.download_directory + "/" + filename
 
         input_file = open(src_file, 'wb+')
         input_file.write(response.read())
@@ -42,7 +39,7 @@ class Pit(Dataset):
 
         filename_ethnic_war = self.config.get('pit', 'filename_ethnic_war')
 
-        src_file_ethnic_war = download_directory + "/" + filename_ethnic_war
+        src_file_ethnic_war = self.download_directory + "/" + filename_ethnic_war
 
         input_file_ethnic_war = open(src_file_ethnic_war, 'wb+')
         input_file_ethnic_war.write(response.read())
@@ -55,7 +52,7 @@ class Pit(Dataset):
 
         filename_revolutionary_war = self.config.get('pit', 'filename_revolutionary_war')
 
-        src_file_revolutionary_war = download_directory + "/" + filename_revolutionary_war
+        src_file_revolutionary_war = self.download_directory + "/" + filename_revolutionary_war
 
         input_file_revolutionary_war = open(src_file_revolutionary_war, 'wb+')
         input_file_revolutionary_war.write(response.read())
@@ -68,16 +65,16 @@ class Pit(Dataset):
 
         filename_geno_politicide = self.config.get('pit', 'filename_geno_politicide')
 
-        src_file_geno_politicide = download_directory + "/" + filename_geno_politicide
+        src_file_geno_politicide = self.download_directory + "/" + filename_geno_politicide
 
         input_file_geno_politicide = open(src_file_geno_politicide, 'wb+')
         input_file_geno_politicide.write(response.read())
         input_file_geno_politicide.close()
 
-        shutil.copyfile(src_file, data_in_directory + "/" + filename)
-        shutil.copyfile(src_file_ethnic_war, data_in_directory + "/" + filename_ethnic_war)
-        shutil.copyfile(src_file_revolutionary_war, data_in_directory + "/" + filename_revolutionary_war)
-        shutil.copyfile(src_file_geno_politicide, data_in_directory + "/" + filename_geno_politicide)
+        shutil.copyfile(src_file, self.data_in_directory + "/" + filename)
+        shutil.copyfile(src_file_ethnic_war, self.data_in_directory + "/" + filename_ethnic_war)
+        shutil.copyfile(src_file_revolutionary_war, self.data_in_directory + "/" + filename_revolutionary_war)
+        shutil.copyfile(src_file_geno_politicide, self.data_in_directory + "/" + filename_geno_politicide)
 
     def build_data(self):
 

@@ -19,18 +19,18 @@ class Aut(Dataset):
         response = urllib2.urlopen(self.url)
         print('download completed successfully')
 
-        download_directory = self.config.get('files_and_directories', 'download_directory')
-        data_in_directory = self.config.get('files_and_directories', 'data_in_directory')
+        print('the download directory = ' + self.download_directory)
+
         zip_filename = self.config.get('aut', 'zip_file')
         file_in_zip = self.config.get('aut', 'individual_file_in_zip')
         filename = self.config.get('aut', 'filename')
 
         #extract file(s) from zip download
-        input_zip = open(download_directory + "/" + zip_filename, 'wb+')
+        input_zip = open(self.download_directory + "/" + zip_filename, 'wb+')
         input_zip.write(response.read())
         zf = zipfile.ZipFile(input_zip)
         data = zf.read(file_in_zip)
-        data_file = open(data_in_directory + "/" + filename, 'wb')
+        data_file = open(self.data_in_directory + "/" + filename, 'wb')
         data_file.write(data)
         data_file.close()
         zf.close()

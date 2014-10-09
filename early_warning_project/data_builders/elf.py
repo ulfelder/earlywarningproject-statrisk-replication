@@ -19,18 +19,15 @@ class Elf(Dataset):
         response = urllib2.urlopen(self.url)
         print('download completed successfully')
 
-        download_directory = self.config.get('files_and_directories', 'download_directory')
-        data_in_directory = self.config.get('files_and_directories', 'data_in_directory')
-
         filename = self.config.get('elf', 'filename')
 
-        src_file = download_directory + "/" + filename
+        src_file = self.download_directory + "/" + filename
 
         input_file = open(src_file, 'wb+')
         input_file.write(response.read())
         input_file.close()
 
-        shutil.copyfile(src_file, data_in_directory + "/" + filename)
+        shutil.copyfile(src_file, self.data_in_directory + "/" + filename)
 
     def build_data(self):
 
