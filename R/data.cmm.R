@@ -18,8 +18,8 @@ library(reshape)
 
 require(methods)
 
-source(paste0(wd, "/r/f.pitfcodeit.r"))
-source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
 
 # Get the data, which is an event file (one row per event), not country-year
 csp <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)
