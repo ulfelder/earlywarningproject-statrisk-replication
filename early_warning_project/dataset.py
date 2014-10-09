@@ -16,7 +16,7 @@ class Dataset(object):
     config = ConfigParser.RawConfigParser()
 
     def __init__(self):
-        main_base = os.path.dirname(__file__)
+        main_base = os.path.dirname(os.path.abspath(__file__))
         config_directory = main_base + "/../conf"
 
         # traverse root configuration directory

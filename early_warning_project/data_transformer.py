@@ -9,7 +9,7 @@ def transform_data():
     config = ConfigParser.SafeConfigParser()
 
     # traverse root configuration directory
-    main_base = os.path.dirname(__file__)
+    main_base = os.path.dirname(os.path.abspath(__file__))
     config_directory = main_base + "/../conf"
 
     for root, dirs, files in os.walk(config_directory):
@@ -17,6 +17,7 @@ def transform_data():
         for file in files:
             config.readfp(open(os.path.join(root, file)))
 
+    # Run the R transformation module to generate transformed dataset
     print('running complete data transformation ...')
 
     rscript = config.get('files_and_directories', 'r_script_install')

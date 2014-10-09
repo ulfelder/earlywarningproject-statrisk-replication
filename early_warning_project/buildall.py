@@ -40,7 +40,7 @@ def buildall():
         # create an instance of the class
         instance = loaded_class()
 
-        # download datasets of downloadall is specified
+        # download datasets if downloadall is specified
         if results.download:
             instance.download_data()
 

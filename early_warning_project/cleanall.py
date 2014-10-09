@@ -9,7 +9,7 @@ def cleanall():
     config = ConfigParser.SafeConfigParser()
 
     # traverse root configuration directory
-    main_base = os.path.dirname(__file__)
+    main_base = os.path.dirname(os.path.abspath(__file__))
     config_directory = main_base + "/../conf"
 
     for root, dirs, files in os.walk(config_directory):
@@ -18,10 +18,11 @@ def cleanall():
             config.readfp(open(os.path.join(root, file)))
 
     print('cleaning all working directories ...')
-    #Clean up all downloads, distributions, output csv files, etc
+    # clean up all downloads, distributions, output csv files, etc.
     folders = {config.get('files_and_directories', 'download_directory'),
                config.get('files_and_directories', 'data_in_directory'),
-               config.get('files_and_directories', 'data_out_directory')}
+               config.get('files_and_directories', 'data_out_directory'),
+               config.get('files_and_directories', 'distribution_directory')}
 
     for folder in folders:
         for the_file in os.listdir(folder):

@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import urllib2
-import xlrd
 import shutil as shutil
 from early_warning_project.dataset import Dataset
 import subprocess
