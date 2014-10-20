@@ -61,7 +61,7 @@ dat <- dat[order(dat$country, dat$year),]
 write.csv(dat, file = paste0(wd,"/data.out/ewp.statrisk.data.raw.csv"), row.names = FALSE)
 
 # Remove all objects except dat from the workspace
-rm(list=setdiff(ls(), "dat"))
+rm(list=setdiff(ls(), "dat", "wd"))
 
 ### Mass Killing Episodes (mkl)
 # Onset of state-led mass killing in following year (***TARGET/DEP VAR FOR RISK ASSESSMENTS***)
