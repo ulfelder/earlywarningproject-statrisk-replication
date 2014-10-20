@@ -1,7 +1,7 @@
 earlywarningproject-statrisk-replication
 ========================================
 
-This repository contains R scripts and links to the data required to reproduce---and, if desired, to modify or to extend---statistical risk assessments I generate for the Early Warning Project. Please direct questions or bug reports to me at ulfelder@gmail.com or to the larger project at ewp@ushmm.org. To learn more about the design of our statistical risk assessment process and the Early Warning Project as a whole, see [this FAQ](http://cpgearlywarning.wordpress.com/about/frequently-asked-questions/).
+This repository contains R scripts and links to the data required to reproduce---and, if desired, to modify or to extend---statistical risk assessments I generate for the Early Warning Project. Please direct questions, suggestions, or bug reports to me at ulfelder@gmail.com or to the larger project at ewp@ushmm.org. To learn more about the design of our statistical risk assessment process and the Early Warning Project as a whole, see [this FAQ](http://cpgearlywarning.wordpress.com/about/frequently-asked-questions/).
 
 The process of generating these risk assessments has two stages: 1) data ingestion, compilation, and transformation; and 2) modeling. The R scripts in this repository are prefixed accordingly (data or model). You can follow the process all the way from the raw source data to forecasts based on the most recent data available, or you can load the compiled and transformed data set and proceed directly to stage 2, modeling.
 
@@ -30,35 +30,36 @@ ____________
 
 ### 1. Data
 
-The scripts for stage 1 (data) are listed below. The root part of each script's name refers to a specific source file (e.g., pol refers to Polity IV). That root matches the prefix used to identify that source's data and transformations of it in the complete data set.
+The scripts for stage 1 (data) are listed below. These files ingest data sets from their sources (either remotely or locally, depending on what's available from the source) and prepare them for merging and transformation. The root part of each script's name refers to a specific source file (e.g., pol refers to Polity IV). That root matches the prefix used to identify that source's data and transformations of it in the complete data set.
 
-The order in which these scripts are run does not matter, with the important exception that "data.transformation.r" depends on all of the others and therefore must be run last. It ingests and merges the files created by all of the other scripts and then performs certain transformations before outputting the results to /data.out in a .csv called "ewp.statrisk.data.transformed.csv".
+The order in which these scripts are run does not matter, with the important exception that **"data.transformation.r" depends on all of the others and therefore must be run last**. It ingests and merges the files created by all of the other scripts and then performs certain transformations before outputting the results to /data.out in a .csv called "ewp.statrisk.data.transformed.csv".
 
 The "data.dictionary.r" script is optional. It creates a data dictionary for the merged and transformed data set in the form of a .tex file that is written to /data.out. You can also browse and search the script itself for information on specific variables and the sources. **A PDF of the data dictionary can be found in the \data.out folder ([here](https://github.com/ulfelder/earlywarningproject-statrisk-replication/blob/master/data.out/EWP%20Data%20Dictionary%2020140909.pdf)).**
 
-* data.aut.r
-* data.cmm.r
-* data.cpt.r
-* data.dis.r
-* data.elc.r
-* data.fiw.r
-* data.hum.r
-* data.imf.r
-* data.imr.r
-* data.ios.r
-* data.mev.r
-* data.mkl.r
-* data.pol.r
-* data.pit.r
-* data.wdi.r
-* data.transformation.r
-* data.dictionary.r
+* data.mkl.r. Early Warning Project episodes of state-led mass killing
+* data.aut.r. Geddes Wright & Frantz's Authoritarian Regimes
+* data.cmm.r. Center for Systemic Peace (CSP) coup events
+* data.cpt.r. Powell and Thyne coup events
+* data.dis.r. PITF ethnic discrimination
+* data.elc.r. PITF elite characteristics
+* data.elf.r. Ethnic and religious fractionalization
+* data.fiw.r. Freedom House Freedom in the World data
+* data.hum.r. Latent Human Rights Protection Scores
+* data.imf.r. International Monetary Fund GDP growth estimates
+* data.imr.r. U.S. Census Bureau infant mortality rate estimates
+* data.ios.r. Ulfelder International Organizations and Treaty Regimes
+* data.mev.r. CSP Major Episodes of Political Violence
+* data.pol.r. Polity IV data on political regimes
+* data.pit.r. PITF episodes of political instability
+* data.wdi.r. World Bank World Development Indicators (subset)
+* data.transformation.r. Aggregates and transforms all data sets
+* data.dictionary.r. Produces data dictionary for LaTeX
 
 Of course, these scripts also depend on access to files (or, in a few cases, URLs) with the raw source data stored in /data.in. 
 
 ### 2. Modeling
 
-The scripts for stage 2 (modeling) are listed below. **Users wishing to replicate or extend the risk assessments without replicating the data ingestion and transformation process may simply start with the data set produced by "data.transformation.r" in stage 1 (see [here](https://github.com/ulfelder/earlywarningproject-statrisk-replication/blob/master/data.out/ewp.statrisk.data.transformed.csv)) and then use these scripts.**
+The scripts for stage 2 (modeling) are listed below. **Users wishing to replicate or extend the risk assessments without replicating the data ingestion and transformation process may simply start with the data set produced by "data.transformation.r" in stage 1 (see [here](https://github.com/ulfelder/earlywarningproject-statrisk-replication/blob/master/data.out/ewp.statrisk.data.transformed.csv)) and then use these scripts.** As for order: "model.prediction.r" can be run without running "model.validation.r" first or at all; "model.formulae.r" does not need to be run directly (it is called by the validation and prediction scripts); and "model.plots.r" will only run after "model.prediction.r". 
 
 * model.formulae.r
 * model.prediction.r
