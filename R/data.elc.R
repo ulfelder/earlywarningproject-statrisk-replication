@@ -33,4 +33,4 @@ USA <- data.frame(rep("USA", times = max(elc$year) - min(elc$year) + 1), seq(min
 names(USA) <- names(elc)
 elc <- rbind(elc, USA)
 
-write.csv(elc, file = paste0(wd, "/data.out/elc.csv"), row.names=FALSE)
+write.csv(elc, file = paste0(wd, "/data.out/elc.csv"), row.names = FALSE)
