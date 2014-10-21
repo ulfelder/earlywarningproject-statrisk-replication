@@ -20,14 +20,23 @@ class Imf(Dataset):
         print('download completed successfully')
 
         filename = self.config.get('imf', 'filename')
+        encoded_filename = self.config.get('imf', 'encoded_filename')
 
         src_file = self.download_directory + "/" + filename
+        src_file2 = self.download_directory + "/" + encoded_filename
 
         input_file = open(src_file, 'wb+')
         input_file.write(response.read())
         input_file.close()
 
-        shutil.copyfile(src_file, self.data_in_directory + "/" + filename)
+        sourceEncoding = "cp1252"
+        targetEncoding = "utf-8"
+        source = open(src_file)
+        target = open(src_file2, "w")
+        target.write(unicode(source.read(), sourceEncoding).encode(targetEncoding))
+        target.close()
+
+        shutil.copyfile(src_file2, self.data_in_directory + "/" + filename)
 
     def build_data(self):
 

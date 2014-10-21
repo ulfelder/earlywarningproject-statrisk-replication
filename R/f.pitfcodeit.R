@@ -87,7 +87,8 @@ pitfcodeit <- function(df, namevar) {
     data[,namevar]=="Ivory Coast" |
     data[,namevar]=="Cote d Ivoire" |
     data[,namevar]=="Ivory Coast (Cote d'Ivoire)" |
-    data[,namevar]=="CÙte d'Ivoire"), 'IVO')
+    data[,namevar]=="C�te d'Ivoire" |
+    data[,namevar]=="Côte d'Ivoire"), 'IVO')
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Croatia", 'CRO')
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Cuba", 'CUB')
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Cyprus", 'CYP')
@@ -338,4 +339,3 @@ pitfcodeit <- function(df, namevar) {
     data[,namevar]=="Israel, occupied territories only", 'PAL')
   return(data)
 }
-
