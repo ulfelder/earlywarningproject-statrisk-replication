@@ -399,11 +399,11 @@ rack$mkl.type[rack$country=="Jordan" & rack$year==1970] <- 1
 rack$mkl.ever[rack$country=="Jordan" & rack$year>=1970] <- 1
 
 # Uganda, 1971-1979 (Amin)
-rack$mkl.start[rack$country=="Colombia" & rack$year==1971] <- 1
-rack$mkl.end[rack$country=="Colombia" & rack$year==1979] <- 1
-rack$mkl.ongoing[rack$country=="Colombia" & rack$year>=1971 & rack$year<=1979] <- 1
-rack$mkl.type[rack$country=="Colombia" & rack$year==1971] <- 3
-rack$mkl.ever[rack$country=="Colombia" & rack$year>=1971] <- 1
+rack$mkl.start[rack$country=="Uganda" & rack$year==1971] <- 1
+rack$mkl.end[rack$country=="Uganda" & rack$year==1979] <- 1
+rack$mkl.ongoing[rack$country=="Uganda" & rack$year>=1971 & rack$year<=1979] <- 1
+rack$mkl.type[rack$country=="Uganda" & rack$year==1971] <- 3
+rack$mkl.ever[rack$country=="Uganda" & rack$year>=1971] <- 1
 
 # Uganda, 1981-1986 (civil wa)
 rack$mkl.start[rack$country=="Uganda" & rack$year==1981] <- 1
