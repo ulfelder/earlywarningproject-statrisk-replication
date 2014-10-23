@@ -1,6 +1,6 @@
 # MASS KILLING EPISODE DATA MAKER
 # Jay Ulfelder
-# 2014-09-02
+# 2014-10-23
 
 # This script creates a country-year data set that spans the period 1945-2013. It is based on the data set
 # described in Ulfelder and Valentino (2008) (http://ssrn.com/abstract=1703426_). I am solely responsible for
@@ -97,9 +97,10 @@ rack$mkl.ongoing[rack$country=="Philippines" & rack$year>=1946 & rack$year<=1954
 rack$mkl.type[rack$country=="Philippines" & rack$year==1946] <- 1
 rack$mkl.ever[rack$country=="Philippines" & rack$year>=1946] <- 1
 
-# Philippines, 1969- (New Peoples Army)
+# Philippines, 1969-2010 (New Peoples Army)
 rack$mkl.start[rack$country=="Philippines" & rack$year==1969] <- 1
-rack$mkl.ongoing[rack$country=="Philippines" & rack$year>=1969] <- 1
+rack$mkl.end[rack$country=="Philippines" & rack$year==2010] <- 1
+rack$mkl.ongoing[rack$country=="Philippines" & rack$year>=1969 & rack$year<=2010] <- 1
 rack$mkl.type[rack$country=="Philippines" & rack$year==1969] <- 1
 
 # Philippines, 1972-1986 (Moro Liberation)
@@ -143,7 +144,7 @@ rack$mkl.ongoing[rack$country=="South Korea" & rack$year>=1948 & rack$year<=1950
 rack$mkl.type[rack$country=="South Korea" & rack$year==1948] <- 1
 rack$mkl.ever[rack$country=="South Korea" & rack$year>=1948] <- 1
 
-# North Korea, 1948- (repression)
+# North Korea, 1948- (political repression)
 rack$mkl.start[rack$country=="North Korea" & rack$year==1948] <- 1
 rack$mkl.ongoing[rack$country=="North Korea" & rack$year>=1948] <- 1
 rack$mkl.type[rack$country=="North Korea" & rack$year==1948] <- 3
@@ -156,34 +157,35 @@ rack$mkl.ongoing[rack$country=="Guatemala" & rack$year>=1954 & rack$year<=1996] 
 rack$mkl.type[rack$country=="Guatemala" & rack$year==1954] <- 1
 rack$mkl.ever[rack$country=="Guatemala" & rack$year>=1954] <- 1
 
-# North Vietnam, 1954-1957 (repression)
+# North Vietnam, 1954-1957 (suspected political opponents)
 rack$mkl.start[rack$country=="North Vietnam" & rack$year==1954] <- 1
 rack$mkl.end[rack$country=="North Vietnam" & rack$year==1957] <- 1
 rack$mkl.ongoing[rack$country=="North Vietnam" & rack$year>=1954 & rack$year<=1957] <- 1
 rack$mkl.type[rack$country=="North Vietnam" & rack$year==1954] <- 3
 rack$mkl.ever[rack$country=="North Vietnam" & rack$year>=1954] <- 1
 
-# South Vietnam, 1954-1975 (civil war)
+# South Vietnam, 1954-1975 (alleged Viet Cong supporters)
 rack$mkl.start[rack$country=="South Vietnam" & rack$year==1954] <- 1
 rack$mkl.end[rack$country=="South Vietnam" & rack$year==1975] <- 1
 rack$mkl.ongoing[rack$country=="South Vietnam" & rack$year>=1954 & rack$year<=1975] <- 1
 rack$mkl.type[rack$country=="South Vietnam" & rack$year==1954] <- 1
 rack$mkl.ever[rack$country=="South Vietnam" & rack$year>=1954] <- 1
 
-# Vietnam, 1975- (post-war repression)
+# Vietnam, 1975-1986 (post-war repression)
 rack$mkl.start[rack$country=="Vietnam" & rack$year==1975] <- 1
-rack$mkl.ongoing[rack$country=="Vietnam" & rack$year>=1975] <- 1
+rack$mkl.end[rack$country=="Vietnam" & rack$year==1986] <- 1
+rack$mkl.ongoing[rack$country=="Vietnam" & rack$year>=1975 & rack$year<=1986] <- 1
 rack$mkl.type[rack$country=="Vietnam" & rack$year==1975] <- 1
 rack$mkl.ever[rack$country=="Vietnam" & rack$year>=1975] <- 1
 
-# Sudan, 1956-1972 (civil war)
-rack$mkl.start[rack$country=="Sudan" & rack$year==1956] <- 1
+# Sudan, 1955-1972 (civil war)
+rack$mkl.start[rack$country=="Sudan" & rack$year==1955] <- 1
 rack$mkl.end[rack$country=="Sudan" & rack$year==1972] <- 1
-rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=1956 & rack$year<=1972] <- 1
-rack$mkl.type[rack$country=="Sudan" & rack$year==1956] <- 1
-rack$mkl.ever[rack$country=="Sudan" & rack$year>=1956] <- 1
+rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=1955 & rack$year<=1972] <- 1
+rack$mkl.type[rack$country=="Sudan" & rack$year==1955] <- 1
+rack$mkl.ever[rack$country=="Sudan" & rack$year>=1955] <- 1
 
-# Sudan, 1983-2005
+# Sudan, 1983-2005 (secessionist non-Muslim southerners and Nuba)
 rack$mkl.start[rack$country=="Sudan" & rack$year==1983] <- 1
 rack$mkl.end[rack$country=="Sudan" & rack$year==2005] <- 1
 rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=1983 & rack$year<=2005] <- 1
@@ -229,16 +231,17 @@ rack$mkl.ongoing[rack$country=="Guinea" & rack$year>=1960 & rack$year<=1980] <- 
 rack$mkl.type[rack$country=="Guinea" & rack$year==1960] <- 3
 rack$mkl.ever[rack$country=="Guinea" & rack$year>=1960] <- 1
 
-# Laos, 1960-1973 (Communists-civil war)
-rack$mkl.start[rack$country=="Laos" & rack$year==1960] <- 1
+# Laos, 1959-1973 (Communists-civil war)
+rack$mkl.start[rack$country=="Laos" & rack$year==1959] <- 1
 rack$mkl.end[rack$country=="Laos" & rack$year==1973] <- 1
-rack$mkl.ongoing[rack$country=="Laos" & rack$year>=1960 & rack$year<=1973] <- 1
-rack$mkl.type[rack$country=="Laos" & rack$year==1960] <- 1
-rack$mkl.ever[rack$country=="Laos" & rack$year>=1960] <- 1
+rack$mkl.ongoing[rack$country=="Laos" & rack$year>=1959 & rack$year<=1973] <- 1
+rack$mkl.type[rack$country=="Laos" & rack$year==1959] <- 1
+rack$mkl.ever[rack$country=="Laos" & rack$year>=1959] <- 1
 
-# Laos, 1975- (Communist repression/Hmong civil war)
+# Laos, 1975-1991 (Communist repression/Hmong civil war)
 rack$mkl.start[rack$country=="Laos" & rack$year==1975] <- 1
-rack$mkl.ongoing[rack$country=="Laos" & rack$year>=1975] <- 1
+rack$mkl.end[rack$country=="Laos" & rack$year==1991] <- 1
+rack$mkl.ongoing[rack$country=="Laos" & rack$year>=1975 & rack$year<=1991] <- 1
 rack$mkl.type[rack$country=="Laos" & rack$year==1975] <- 1
 
 # Congo, 1960-1963 (Kasai)
@@ -315,9 +318,10 @@ rack$mkl.ongoing[rack$country=="Colombia" & rack$year>=1948 & rack$year<=1958] <
 rack$mkl.type[rack$country=="Colombia" & rack$year==1948] <- 1
 rack$mkl.ever[rack$country=="Colombia" & rack$year>=1948] <- 1
 
-# Colombia, 1965- (FARC, ELN, etc.)
+# Colombia, 1965-2010 (FARC, ELN, etc.)
 rack$mkl.start[rack$country=="Colombia" & rack$year==1965] <- 1
-rack$mkl.ongoing[rack$country=="Colombia" & rack$year>=1965] <- 1
+rack$mkl.end[rack$country=="Colombia" & rack$year==2010] <- 1
+rack$mkl.ongoing[rack$country=="Colombia" & rack$year>=1965 & rack$year<=2010] <- 1
 rack$mkl.type[rack$country=="Colombia" & rack$year==1965] <- 1
 
 # Dominican Republic, 1965-1978 (civil war)
@@ -340,9 +344,10 @@ rack$mkl.end[rack$country=="Indonesia" & rack$year==1966] <- 1
 rack$mkl.ongoing[rack$country=="Indonesia" & rack$year>=1965 & rack$year<=1966] <- 1
 rack$mkl.type[rack$country=="Indonesia" & rack$year==1965] <- 3
 
-# Indonesia, 1969- (West Papua)
+# Indonesia, 1969-2007 (West Papua)
 rack$mkl.start[rack$country=="Indonesia" & rack$year==1969] <- 1
-rack$mkl.ongoing[rack$country=="Indonesia" & rack$year>=1969] <- 1
+rack$mkl.end[rack$country=="Indonesia" & rack$year==2007] <- 1
+rack$mkl.ongoing[rack$country=="Indonesia" & rack$year>=1969 & rack$year<=2007] <- 1
 rack$mkl.type[rack$country=="Indonesia" & rack$year==1969] <- 1
 
 # Indonesia, 1975-1999 (East Timor)
@@ -398,14 +403,14 @@ rack$mkl.ongoing[rack$country=="Jordan" & rack$year>=1970 & rack$year<=1971] <- 
 rack$mkl.type[rack$country=="Jordan" & rack$year==1970] <- 1
 rack$mkl.ever[rack$country=="Jordan" & rack$year>=1970] <- 1
 
-# Uganda, 1971-1979 (Amin)
+# Uganda, 1971-1979 (political opponents of Amin)
 rack$mkl.start[rack$country=="Colombia" & rack$year==1971] <- 1
 rack$mkl.end[rack$country=="Colombia" & rack$year==1979] <- 1
 rack$mkl.ongoing[rack$country=="Colombia" & rack$year>=1971 & rack$year<=1979] <- 1
 rack$mkl.type[rack$country=="Colombia" & rack$year==1971] <- 3
 rack$mkl.ever[rack$country=="Colombia" & rack$year>=1971] <- 1
 
-# Uganda, 1981-1986 (civil wa)
+# Uganda, 1981-1986 (political and tribal rivals of Obote)
 rack$mkl.start[rack$country=="Uganda" & rack$year==1981] <- 1
 rack$mkl.end[rack$country=="Uganda" & rack$year==1986] <- 1
 rack$mkl.ongoing[rack$country=="Uganda" & rack$year>=1981 & rack$year<=1986] <- 1
@@ -465,10 +470,10 @@ rack$mkl.ongoing[rack$country=="Nicaragua" & rack$year>=1974 & rack$year<=1979] 
 rack$mkl.type[rack$country=="Nicaragua" & rack$year==1974] <- 1
 rack$mkl.ever[rack$country=="Nicaragua" & rack$year>=1974] <- 1
 
-# Nicaragua, 1981-1990 (Contras)
+# Nicaragua, 1981-1988 (Contras)
 rack$mkl.start[rack$country=="Nicaragua" & rack$year==1981] <- 1
-rack$mkl.end[rack$country=="Nicaragua" & rack$year==1990] <- 1
-rack$mkl.ongoing[rack$country=="Nicaragua" & rack$year>=1981 & rack$year<=1990] <- 1
+rack$mkl.end[rack$country=="Nicaragua" & rack$year==1988] <- 1
+rack$mkl.ongoing[rack$country=="Nicaragua" & rack$year>=1981 & rack$year<=1988] <- 1
 rack$mkl.type[rack$country=="Nicaragua" & rack$year==1981] <- 1
 
 # Mozambique, 1975-1992 (RENAMO)
@@ -485,7 +490,7 @@ rack$mkl.ongoing[rack$country=="Angola" & rack$year>=1975 & rack$year<=2002] <- 
 rack$mkl.type[rack$country=="Angola" & rack$year==1975] <- 1
 rack$mkl.ever[rack$country=="Angola" & rack$year>=1975] <- 1
 
-# Argentina, 1976-1983
+# Argentina, 1976-1983 (political opponents)
 rack$mkl.start[rack$country=="Argentina" & rack$year==1976] <- 1
 rack$mkl.end[rack$country=="Argentina" & rack$year==1983] <- 1
 rack$mkl.ongoing[rack$country=="Argentina" & rack$year>=1976 & rack$year<=1983] <- 1
@@ -513,9 +518,10 @@ rack$mkl.ongoing[rack$country=="Iran" & rack$year>=1978 & rack$year<=1979] <- 1
 rack$mkl.type[rack$country=="Iran" & rack$year==1978] <- 3
 rack$mkl.ever[rack$country=="Iran" & rack$year>=1978] <- 1
 
-# Iran, 1979- (post-revolution, Kurds)
+# Iran, 1979-2010 (post-revolution, Kurds)
 rack$mkl.start[rack$country=="Iran" & rack$year==1979] <- 1
-rack$mkl.ongoing[rack$country=="Iran" & rack$year>=1979] <- 1
+rack$mkl.end[rack$country=="Iran" & rack$year==2010] <- 1
+rack$mkl.ongoing[rack$country=="Iran" & rack$year>=1979 & rack$year<=2010] <- 1
 rack$mkl.type[rack$country=="Iran" & rack$year==1979] <- 3
 
 # Afghanistan, 1978-1992
@@ -581,13 +587,15 @@ rack$mkl.ongoing[rack$country=="South Yemen" & rack$year==1986] <- 1
 rack$mkl.type[rack$country=="South Yemen" & rack$year==1986] <- 1
 rack$mkl.ever[rack$country=="South Yemen" & rack$year>=1986] <- 1
 
-# Uganda, 1986- (LRA)
+# Uganda, 1986-2006 (LRA)
 rack$mkl.start[rack$country=="Uganda" & rack$year==1986] <- 1
-rack$mkl.ongoing[rack$country=="Uganda" & rack$year>=1986] <- 1
+rack$mkl.end[rack$country=="Uganda" & rack$year==2006] <- 1
+rack$mkl.ongoing[rack$country=="Uganda" & rack$year>=1986 & rack$year<=2006] <- 1
 rack$mkl.type[rack$country=="Uganda" & rack$year==1986] <- 1
 
 # Burma, 1988 (political repression)
 rack$mkl.start[rack$country=="Burma" & rack$year==1986] <- 1
+rack$mkl.end[rack$country=="Burma" & rack$year==1986] <- 1
 rack$mkl.ongoing[rack$country=="Burma" & rack$year==1986] <- 1
 rack$mkl.type[rack$country=="Burma" & rack$year==1986] <- 2
 
@@ -629,10 +637,10 @@ rack$mkl.ongoing[rack$country=="Liberia" & rack$year>=1989 & rack$year<=1990] <-
 rack$mkl.type[rack$country=="Liberia" & rack$year==1989] <- 1
 rack$mkl.ever[rack$country=="Liberia" & rack$year>=1989] <- 1
 
-# India, 1990-2012 (Kashmir)
+# India, 1990-2011 (Kashmir)
 rack$mkl.start[rack$country=="India" & rack$year==1990] <- 1
-rack$mkl.end[rack$country=="India" & rack$year==2012] <- 1
-rack$mkl.ongoing[rack$country=="India" & rack$year>=1990 & rack$year<=2012] <- 1
+rack$mkl.end[rack$country=="India" & rack$year==2011] <- 1
+rack$mkl.ongoing[rack$country=="India" & rack$year>=1990 & rack$year<=2011] <- 1
 rack$mkl.type[rack$country=="India" & rack$year==1990] <- 1
 
 # Rwanda, 1990-1994 (Hutu-Tutsi)
@@ -641,10 +649,10 @@ rack$mkl.end[rack$country=="Rwanda" & rack$year==1994] <- 1
 rack$mkl.ongoing[rack$country=="Rwanda" & rack$year>=1990 & rack$year<=1994] <- 1
 rack$mkl.type[rack$country=="Rwanda" & rack$year==1990] <- 1
 
-# Nigeria, 1990-2012 (Niger Delta)
+# Nigeria, 1990-2009 (Niger Delta)
 rack$mkl.start[rack$country=="Nigeria" & rack$year==1990] <- 1
-rack$mkl.end[rack$country=="Nigeria" & rack$year==2012] <- 1
-rack$mkl.ongoing[rack$country=="Nigeria" & rack$year>=1990 & rack$year<=2012] <- 1
+rack$mkl.end[rack$country=="Nigeria" & rack$year==2009] <- 1
+rack$mkl.ongoing[rack$country=="Nigeria" & rack$year>=1990 & rack$year<=2009] <- 1
 rack$mkl.type[rack$country=="Nigeria" & rack$year==1990] <- 1
 
 # India, 1990-1991 (Assam)
@@ -750,7 +758,7 @@ rack$mkl.ongoing[rack$country=="Russia" & rack$year>=1994 & rack$year<=2009] <- 
 rack$mkl.type[rack$country=="Russia" & rack$year==1994] <- 1
 rack$mkl.ever[rack$country=="Russia" & rack$year>=1994] <- 1
 
-# Nepal, 1995-2006 (Maoists) [mkl.end date added]
+# Nepal, 1995-2006 (Maoists) [end date added]
 rack$mkl.start[rack$country=="Nepal" & rack$year==1995] <- 1
 rack$mkl.end[rack$country=="Nepal" & rack$year==2006] <- 1
 rack$mkl.ongoing[rack$country=="Nepal" & rack$year>=1995 & rack$year<=2006] <- 1
@@ -776,7 +784,7 @@ rack$mkl.ongoing[rack$country=="Serbia and Montenegro" & rack$year>=1998 & rack$
 rack$mkl.type[rack$country=="Serbia and Montenegro" & rack$year==1998] <- 1
 rack$mkl.ever[rack$country=="Serbia and Montenegro" & rack$year>=1998] <- 1
 
-# Congo-Kinshasa, 1998-
+# Congo-Kinshasa, 1998- (various counter-insurgency)
 rack$mkl.start[rack$country=="Congo-Kinshasa" & rack$year==1998] <- 1
 rack$mkl.ongoing[rack$country=="Congo-Kinshasa" & rack$year>=1998] <- 1
 rack$mkl.type[rack$country=="Congo-Kinshasa" & rack$year==1998] <- 1
@@ -787,10 +795,9 @@ rack$mkl.end[rack$country=="Liberia" & rack$year==2003] <- 1
 rack$mkl.ongoing[rack$country=="Liberia" & rack$year>=2000 & rack$year<=2003] <- 1
 rack$mkl.type[rack$country=="Liberia" & rack$year==2000] <- 1
 
-# Sudan, 2003-2009 (Darfur) [mkl.end date added]
+# Sudan, 2003- (Darfur)
 rack$mkl.start[rack$country=="Sudan" & rack$year==2003] <- 1
-rack$mkl.end[rack$country=="Sudan" & rack$year==2009] <- 1
-rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=2003 & rack$year<=2009] <- 1
+rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=2003] <- 1
 rack$mkl.type[rack$country=="Sudan" & rack$year==2003] <- 1
 
 # Sri Lanka, 2009 (northern offensive) [episode added]
@@ -799,12 +806,26 @@ rack$mkl.end[rack$country=="Sri Lanka" & rack$year==2009] <- 1
 rack$mkl.ongoing[rack$country=="Sri Lanka" & rack$year==2009] <- 1
 rack$mkl.type[rack$country=="Sri Lanka" & rack$year==2009] <- 1
 
+# Ivory Coast, 2010-2011 (suspected supporters of Outtara) [episode added]
+rack$mkl.start[rack$country=="Ivory Coast" & rack$year==2010] <- 1
+rack$mkl.end[rack$country=="Ivory Coast" & rack$year==2011] <- 1
+rack$mkl.ongoing[rack$country=="Ivory Coast" & rack$year>=2010 & rack$year<=2011] <- 1
+rack$mkl.type[rack$country=="Ivory Coast" & rack$year==2010] <- 1
+rack$mkl.ever[rack$country=="Ivory Coast" & rack$year>=2010] <- 1
+
+# Libya, 2011 (civil war) [episode added]
+rack$mkl.start[rack$country=="Libya" & rack$year==2011] <- 1
+rack$mkl.end[rack$country=="Libya" & rack$year==2011] <- 1
+rack$mkl.ongoing[rack$country=="Libya" & rack$year==2011] <- 1
+rack$mkl.type[rack$country=="Libya" & rack$year==2011] <- 1
+rack$mkl.ever[rack$country=="Libya" & rack$year>=2011] <- 1
+
 # Syria, 2011- (repression of civil resistance) [episode added]
 rack$mkl.start[rack$country=="Syria" & rack$year==2011] <- 1
 rack$mkl.ongoing[rack$country=="Syria" & rack$year>=2011] <- 1
 rack$mkl.type[rack$country=="Syria" & rack$year==2011] <- 2
 
-# Sudan, 2011- (South Kordofan) [episode added]
+# Sudan, 2011- (South Kordofan/Blue Nile) [episode added]
 rack$mkl.start[rack$country=="Sudan" & rack$year==2011] <- 1
 rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=2011] <- 1
 rack$mkl.type[rack$country=="Sudan" & rack$year==2011] <- 1
@@ -814,7 +835,7 @@ rack$mkl.start[rack$country=="Egypt" & rack$year==2013] <- 1
 rack$mkl.ongoing[rack$country=="Egypt" & rack$year>=2013] <- 1
 rack$mkl.type[rack$country=="Egypt" & rack$year==2011] <- 2
 
-# Nigeria, 2013- (Boko Haram) [episode added]
+# Nigeria, 2013- (counter-Boko Haram efforts) [episode added]
 rack$mkl.start[rack$country=="Nigeria" & rack$year==2013] <- 1
 rack$mkl.ongoing[rack$country=="Nigeria" & rack$year>=2013] <- 1
 rack$mkl.type[rack$country=="Nigeria" & rack$year==2013] <- 1
