@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import cleanall
+import emailResults
 import argparse
 import os
 import pkgutil
@@ -48,6 +49,9 @@ def buildall():
 
     # build master ewp files
     data_transformer.transform_data()
+
+    # send completed build email
+    emailResults.emailResults()
 
 def main():
     buildall()
