@@ -3,6 +3,7 @@ data_in/*
 data_out/*
 dist/*
 build/*
+archives/*
 *.pyc
 .DS_Store
 .idea
