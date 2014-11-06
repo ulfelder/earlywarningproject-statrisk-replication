@@ -351,4 +351,4 @@ dat <- MoveFront(dat, Var = c("country", "sftgcode", "year"))
 wd <- getwd()
 
 # Write .csv
-write.csv(dat, file = paste0(wd, "/data_out/ewp.statrisk.data.transformed.csv"), row.names = FALSE)
+write.csv(dat, file = paste0(wd, commandArgs(TRUE)[2]), row.names = FALSE)
