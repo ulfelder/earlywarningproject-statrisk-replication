@@ -16,8 +16,8 @@ wd <- getwd()
 # Load requisite packages and functions
 require(xlsx)
 require(reshape)
-source(paste0(wd, "/r/f.pitfcodeit.r"))
-source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
 
 # Ingest and reshape data into desired country-year format
 fiw <- read.xlsx2(paste0(wd, commandArgs(TRUE)[2]),

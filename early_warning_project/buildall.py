@@ -9,7 +9,11 @@ import importlib
 import data_transformer
 
 # parse command line arguments
-# if -cleanall or -download all are specified, those actions are taken first
+# if -cleanall or -downloadall are specified, those actions are taken first
+print('******************************************************************************')
+print('* if -cleanall or -downloadall are specified, those actions are taken first  *')
+print('******************************************************************************')
+
 parser = argparse.ArgumentParser(description='Build the early_warning_project')
 parser.add_argument('-cleanall', action="store_true", default=False, dest='clean',
                    help='remove old files before starting the build')

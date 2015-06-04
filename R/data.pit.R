@@ -23,8 +23,8 @@ library(reshape)
 
 require(methods)
 
-source(paste0(wd, "/r/f.countryyearrackit.r"))
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # Adverse regime change
 reg <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]),

@@ -43,7 +43,7 @@ def emailResults():
         print("Email sent.")
 
     except smtplib.SMTPAuthenticationError:
-        print("Error: Authentication failed! Please verify the email username and password. Email will not be sent")
+        print("Email Error: Authentication failed! Please verify the email username and password. Final build email will not be sent.")
 
 def main():
     emailResults()

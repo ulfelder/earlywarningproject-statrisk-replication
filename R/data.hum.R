@@ -14,7 +14,7 @@ wd <- getwd()
 
 # Load requisite packages and functions
 library(DataCombine)
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # Ingest data
 hum <- read.csv(paste0(wd, commandArgs(TRUE)[2]))

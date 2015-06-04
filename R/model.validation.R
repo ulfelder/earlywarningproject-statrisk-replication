@@ -17,7 +17,7 @@ library(ROCR)
 dat <- read.csv(paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"))
 
 # Load the model formulae
-source(paste0(wd, "/r/model.formulae.r"))
+source(paste0(wd, "/R/model.formulae.R"))
 
 #############################
 # Model Validation

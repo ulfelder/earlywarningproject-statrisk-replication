@@ -16,8 +16,8 @@ setwd(commandArgs(TRUE)[1])
 wd <- getwd()
 
 # Load required functions
-source(paste0(wd, "/r/f.countryyearrackit.r"))
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # Create rack of names and years, starting in 1945, ending in 2013, with PITF codes
 rack <- pitfcodeit(countryyearrackit(1945, 2013), "country")

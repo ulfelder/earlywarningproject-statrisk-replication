@@ -15,8 +15,8 @@ library(DataCombine)
 library(plyr)
 library(plm)
 library(Hmisc)
-source(paste0(wd, "/r/f.countryyearrackit.r"))
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # Load the raw data sets
 mkl <- read.csv(paste0(wd, "/data_out/mkl.csv"))

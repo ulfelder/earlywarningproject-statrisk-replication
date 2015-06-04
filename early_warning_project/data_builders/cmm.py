@@ -5,7 +5,6 @@ import shutil as shutil
 from early_warning_project.dataset import Dataset
 import subprocess
 
-
 class Cmm(Dataset):
 
     def __init__(self):
@@ -22,11 +21,9 @@ class Cmm(Dataset):
         filename = self.config.get('cmm', 'filename')
 
         src_file = self.download_directory + "/" + filename
-
         input_file = open(src_file, 'wb+')
         input_file.write(response.read())
         input_file.close()
-
         shutil.copyfile(src_file, self.data_in_directory + "/" + filename)
 
     def build_data(self):

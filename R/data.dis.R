@@ -17,8 +17,8 @@ library(XLConnect)
 
 require(methods)
 
-source(paste0(wd, "/r/f.pitfcodeit.r"))
-source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
 
 # Load the data
 dis <- readWorksheetFromFile(paste0(wd, commandArgs(TRUE)[2]), sheet=1)

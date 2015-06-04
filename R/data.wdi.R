@@ -18,8 +18,8 @@ wd <- getwd()
 
 # Load required packages and functions
 library(WDI)
-source(paste0(wd, "/r/f.countryyearrackit.r"))
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 wdilist <- c("NE.TRD.GNFS.ZS",     # Trade (% of GDP)
              "NY.GDP.PCAP.PP.KD",  # GDP per capita, PPP (constant 2005 intl $)

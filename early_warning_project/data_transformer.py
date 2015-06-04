@@ -31,6 +31,7 @@ def transform_data():
         filetype = config.get('transformation', 'filetype')
         output_file = output_directory + "/" + filename + "." + filetype
         archive_directory = config.get('files_and_directories', 'archive_dir')
+        archive_file_name = config.get('transformation', 'archive_file_name')
 
         command = rscript, r_transformer_script, working_directory, output_file
 
@@ -41,13 +42,13 @@ def transform_data():
 
         # send a copy of the build to archives
         shutil.copyfile(working_directory + "/" + output_file, archive_directory + "/" + filename + "_" + time.strftime("%m_%d_%Y_%I_%M") + "." + filetype)
-        with open(archive_directory + "/text.txt", "a") as myfile:
+        with open(archive_directory + "/" + archive_file_name, "a") as myfile:
             filesize = sizeof_fmt(os.path.getsize(working_directory + "/" + output_file))
             myfile.write("Build Successful," + time.strftime("%m/%d/%Y %I:%M:%S %Z") + "," + filesize + "\n")
             myfile.close()
 
     except (IOError, ValueError, EnvironmentError):
-        with open(archive_directory + "/text.txt", "a") as myfile:
+        with open(archive_directory + "/" + archive_file_name, "a") as myfile:
             myfile.write("Build Failed," + time.strftime("%m/%d/%Y %I:%M:%S %Z") + ",Build Faild\n")
             myfile.close()
 

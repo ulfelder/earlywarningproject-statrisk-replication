@@ -14,8 +14,8 @@ wd <- getwd()
 
 # Load required packages and functions
 library(reshape)
-source(paste0(wd, "/r/f.pitfcodeit.r"))
-source(paste0(wd, "/r/f.countryyearrackit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
 
 # Ingest raw data, which is event file (one row per event), not country-year, from URL
 cpt <- read.delim(commandArgs(TRUE)[2])

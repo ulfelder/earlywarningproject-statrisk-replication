@@ -13,8 +13,8 @@ setwd(commandArgs(TRUE)[1])
 wd <- getwd()
 
 # Load required packages and functions
-source(paste0(wd, "/r/f.countryyearrackit.r"))
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.countryyearrackit.R"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # Load file
 imrates <- read.csv(paste0(wd, commandArgs(TRUE)[2]))

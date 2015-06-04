@@ -13,7 +13,7 @@ wd <- getwd()
 
 # Load required packages and functions
 library(reshape)
-source(paste0(wd, "/r/f.pitfcodeit.r"))
+source(paste0(wd, "/R/f.pitfcodeit.R"))
 
 # 2013 updates from IMF
 # Source: http://www.imf.org/external/pubs/ft/weo/2014/01/weodata/index.aspx
