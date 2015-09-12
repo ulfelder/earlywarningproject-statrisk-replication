@@ -1,5 +1,5 @@
-# WORLD DEVELOPMENT INDICATORS
-# 2014-09-03
+# SELECTED VARIABLES FROM THE WORLD BANK'S WORLD DEVELOPMENT INDICATORS
+# 2015-04-15
 
 # This script uses the 'WDI' package in R to download selected data from the
 # latest version of the World Bank's World Development Indicators and formats 
@@ -24,12 +24,6 @@ wdilist <- c("NE.TRD.GNFS.ZS",     # Trade (% of GDP)
              "NY.GDP.MKTP.KD.ZG",  # GDP growth (annual %)
              "FP.CPI.TOTL.ZG",     # Inflation, consumer prices (annual %)
              "FP.CPI.TOTL",        # Consumer price index (2005 = 100) 
-             "NV.AGR.TOTL.ZS",     # Agriculture, value added (% of GDP)
-             "NV.IND.MANF.ZS",     # Manufacturing, value added (% of GDP)
-             "NV.IND.TOTL.ZS",     # Industry, value added (% of GDP)
-             "NV.SRV.TETC.ZS",     # Services, etc., value added (% of GDP)
-             "GC.TAX.TOTL.GD.ZS",  # Tax revenue (% of GDP)
-             "GC.DOD.TOTL.GD.ZS",  # Central government debt, total (% of GDP)
              "SP.POP.TOTL",        # Population, total
              "SP.URB.TOTL.IN.ZS",  # Urban population (% of total)
              "SP.POP.GROW",        # Population growth (annual %)
@@ -62,12 +56,6 @@ names(wdi) <- c("sftgcode", "year",
   "wdi.gdppcgrow",
   "wdi.inflation",
   "wdi.cpi",
-  "wdi.agric",
-  "wdi.manuf",
-  "wdi.indus",
-  "wdi.servc",
-  "wdi.taxrev",
-  "wdi.govdebt",
   "wdi.popsize",
   "wdi.popurb",
   "wdi.popgrow",

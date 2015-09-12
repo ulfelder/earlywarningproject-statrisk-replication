@@ -1,5 +1,5 @@
 # POWELL AND THYNE COUP DATA
-# 2014-09-03
+# 2015-03-20
 
 # Source: Powell & Thyne http://www.uky.edu/~clthyn2/coup_data/powell_thyne_coups_final.txt 
 
@@ -16,6 +16,8 @@ source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Ingest raw data, which is event file (one row per event), not country-year, from URL
 cpt <- read.delim("http://www.uky.edu/~clthyn2/coup_data/powell_thyne_coups_final.txt")
+
+# Keep only country name, year, and success/fail marker
 cpt <- subset(cpt, select=c("country", "year", "coup"))
 
 # Create binary variables for success & failure of attempts from categorical variable in original
@@ -35,8 +37,8 @@ pt.f <- melt(ptsum.f)
 names(pt.s) <- c("sftgcode", "year", "cpt.succ")
 names(pt.f) <- c("sftgcode", "year", "cpt.fail")
 
-# Generate a complete country-year rectangular file for P&T period of observation (1950-2013+)
-rack <- subset(pitfcodeit(countryyearrackit(1950,2013), "country"), select=c(sftgcode, year))
+# Generate a complete country-year rectangular file for P&T period of observation (1950-2014)
+rack <- subset(pitfcodeit(countryyearrackit(1950,2014), "country"), select=c(sftgcode, year))
 
 # Merge the counts with the larger file
 pt.tscs <- merge(rack, pt.s, all.x = TRUE)

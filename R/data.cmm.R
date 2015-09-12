@@ -1,7 +1,7 @@
 # MARSHALL (CENTER FOR SYSTEMIC PEACE) COUP DATA
-# 2014-09-03
+# 2015-04-29
 
-# Source: Center for Systemic Peace http://www.systemicpeace.org/inscr/CSPCoupsList2012.xls
+# Source: Center for Systemic Peace http://www.systemicpeace.org/inscr/CSPCoupsList2014.xls
 
 # Clear workspace
 rm(list=ls(all=TRUE))
@@ -16,7 +16,7 @@ source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Get the data, which is an event file (one row per event), not country-year
-csp <- readWorksheetFromFile(paste0(wd, "/data.in/cspcoupslist2013.xls"), sheet=1)
+csp <- readWorksheetFromFile(paste0(wd, "/data.in/cspcoupslist2014.xls"), sheet=1)
 
 # Cut down to the essentials
 csp <- subset(csp, is.na(scode)==FALSE, select=c(scode, year, success))
@@ -42,8 +42,8 @@ names(coup.f) <- c("sftgcode", "year", "cmm.fail")
 names(coup.p) <- c("sftgcode", "year", "cmm.plot")
 names(coup.r) <- c("sftgcode", "year", "cmm.rumr")
 
-# Generate a complete country-year rectangular file for CSP period of observation (1946-2013) w/PITF codes
-rack <- subset(pitfcodeit(countryyearrackit(1946,2013), "country"), select=c(sftgcode, year))
+# Generate a complete country-year rectangular file for CSP period of observation (1946-2014) w/PITF codes
+rack <- subset(pitfcodeit(countryyearrackit(1946,2014), "country"), select=c(sftgcode, year))
 
 # Merge the CSP country-year sums with that larger file
 csp.tscs <- merge(rack, coup.s, all.x = TRUE)

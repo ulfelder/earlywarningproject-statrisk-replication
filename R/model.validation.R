@@ -1,5 +1,5 @@
 # CPG STATISTICAL RISK ASSESSMENT MODEL VALIDATION
-# 2014-09-07
+# 2015-05-27
 
 # Clear workspace
 rm(list=ls(all=TRUE))
@@ -19,11 +19,14 @@ dat <- read.csv(paste0(wd, "/data.out/ewp.statrisk.data.transformed.csv"))
 # Load the model formulae
 source(paste0(wd, "/r/model.formulae.r"))
 
+# Set seed
+set.seed(20912)
+
 #############################
 # Model Validation
 #############################
 
-valdat <- subset(dat, year >= 1960 & year <= 2013 & dat$year >= dat$yrborn & dat$year <= dat$yrdied &
+valdat <- subset(dat, year >= 1960 & year <= 2014 & dat$year >= dat$yrborn & dat$year <= dat$yrdied &
   is.na(mkl.start.1) == FALSE)
 y <- valdat$mkl.start.1
 valdat$k <- createFolds(y, k = 10, list = FALSE)

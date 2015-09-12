@@ -170,6 +170,7 @@ pitfcodeit <- function(df, namevar) {
     data[,namevar]=="Korea, Dem. Rep." |
     data[,namevar]=="North Korea (Democratc People's Republic of Korea)" |
     data[,namevar]=="Korea, Dem. Rep. (N)" |
+    data[,namevar]=="Democratic People's Republic of Korea" |
     data[,namevar]=="Korea, Democratic People's Republic of"), 'PRK')
   data$sftgcode <- replace(data$sftgcode, which(data[,namevar]=="Korea, South" |
     data[,namevar]=="South Korea" |
@@ -231,7 +232,8 @@ pitfcodeit <- function(df, namevar) {
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Poland", 'POL')
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Portugal", 'POR')
   data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Qatar", 'QAT')
-  data$sftgcode <- replace(data$sftgcode, data[,namevar]=="Romania", 'RUM')
+  data$sftgcode <- replace(data$sftgcode, which(data[,namevar]=="Romania" |
+    data[,namevar]=="Rumania"), 'RUM')
   data$sftgcode <- replace(data$sftgcode, which(data[,namevar]=="Russia" |
     data[,namevar]=="Russian Federation"), 'RUS')
   data$sftgcode <- replace(data$sftgcode, which(data[,namevar]=="Soviet Union" |
@@ -314,7 +316,8 @@ pitfcodeit <- function(df, namevar) {
     data[,namevar]=="Yemen South" |
     data[,namevar]=="Yemen People's Republic" |
     data[,namevar]=="SouthYemen" |
-    data[,namevar]=="Yemen, S." |
+    data[,namevar]=="Yemen, S." | 
+    data[,namevar]=="Yemen PDR" |
     data[,namevar]=="Yemen People's Republic; S. Yemen" |
     data[,namevar]=="Yemen PDR (South)"), 'YPR')
   data$sftgcode <- replace(data$sftgcode, which(data[,namevar]=="Yugoslavia, FPR" |

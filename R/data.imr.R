@@ -1,5 +1,5 @@
 # INFANT MORTALITY ESTIMATES
-# 2014-09-08
+# 2015-03-20
 
 # Source: U.S. Census Bureau International Division, via PITF
 
@@ -10,23 +10,25 @@ rm(list=ls(all=TRUE))
 wd <- getwd()
 
 # Load required packages and functions
+library(DataCombine)
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
 # Load file
-imrates <- read.csv(paste0(wd, "/data.in/pitf.csv"))
+imrates <- read.csv(paste0(wd, "/data.in/imr.csv"), stringsAsFactors = FALSE)
 
-# Reduce file and clean it up
-imrates <- imrates[,1:4]
+# Drop country name to avoid screwing up merging
+imrates <- VarDrop(imrates, "SFTGNAME")
+
+# Rename variables
 names(imrates) <- c("sftgcode", "year", "imr.raw", "imr.normed")
-imrates$sftgcode <- substr(as.character(imrates$sftgcode),1,3)
-imrates$sftgcode[imrates$sftgcode=="UK "] <- "UKG"
-imrates$imr.raw <- as.numeric(as.character(imrates$imr.raw))
-imrates$imr.normed <- round(as.numeric(as.character(imrates$imr.normed)), 2)
 
-# Merge with country-year rack to add USA, which source doesn't cover
-rack <- merge(subset(pitfcodeit(countryyearrackit(1955, 2012), "country"), select=c(sftgcode, year)),
-  imrates, all.x = TRUE)  # Latest stops in 2012
+# Fix UK country code to match main files
+imrates$sftgcode[imrates$sftgcode=="UK"] <- "UKG"
+
+# Merge with country-year rack to add USA, which source doesn't cover & reorder
+rack <- merge(subset(pitfcodeit(countryyearrackit(1955, 2014), "country"), select=c(sftgcode, year)),
+  imrates, all.x = TRUE)
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Hard code values for USA, which source doesn't cover, to values for Canada

@@ -1,10 +1,6 @@
 # MASS KILLING EPISODE DATA MAKER
 # Jay Ulfelder
-# 2014-10-23
-
-# This script creates a country-year data set that spans the period 1945-2013. It is based on the data set
-# described in Ulfelder and Valentino (2008) (http://ssrn.com/abstract=1703426_). I am solely responsible for
-# updates for the years since 2006.
+# 2015-03-20
 
 # Clear workspace
 rm(list=ls(all=TRUE)) 
@@ -16,8 +12,8 @@ wd <- getwd()
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 source(paste0(wd, "/r/f.pitfcodeit.r"))
 
-# Create rack of names and years, starting in 1945, ending in 2013, with PITF codes
-rack <- pitfcodeit(countryyearrackit(1945, 2013), "country")
+# Create rack of names and years, starting in 1945 and ending in 2014, with PITF codes
+rack <- pitfcodeit(countryyearrackit(1945, 2014), "country")
 
 # Create columns for new variables with zeros
 rack$mkl.start <- 0       # Onset of any new episodes during year
@@ -128,13 +124,13 @@ rack$mkl.end[rack$country=="China" & rack$year==1977] <- 1
 rack$mkl.ongoing[rack$country=="China" & rack$year>=1954 & rack$year<=1977] <- 1
 rack$mkl.type[rack$country=="China" & rack$year==1954] <- 1
 
-# Burma/Myanmar, 1948- (ethnic separatists)
-rack$mkl.start[rack$country=="Burma" & rack$year==1948] <- 1
-rack$mkl.ongoing[rack$country=="Burma" & rack$year>=1948] <- 1
-rack$mkl.type[rack$country=="Burma" & rack$year==1948] <- 1
-rack$mkl.ever[rack$country=="Burma" & rack$year>=1948] <- 1
+# Myanmar, 1948- (ethnic separatists)
+rack$mkl.start[rack$country=="Myanmar" & rack$year==1948] <- 1
+rack$mkl.ongoing[rack$country=="Myanmar" & rack$year>=1948] <- 1
+rack$mkl.type[rack$country=="Myanmar" & rack$year==1948] <- 1
+rack$mkl.ever[rack$country=="Myanmar" & rack$year>=1948] <- 1
 
-# Burma/Myanmar, 1948-1990 (Communist insurgency/repression)
+# Myanmar, 1948-1990 (Communist insurgency/repression)
 # Subsumed under preceding case
 
 # Korea, 1948-1950 (civil violence in south - Cheju and Yosu)
@@ -594,10 +590,10 @@ rack$mkl.ongoing[rack$country=="Uganda" & rack$year>=1986 & rack$year<=2006] <- 
 rack$mkl.type[rack$country=="Uganda" & rack$year==1986] <- 1
 
 # Burma, 1988 (political repression)
-rack$mkl.start[rack$country=="Burma" & rack$year==1986] <- 1
-rack$mkl.end[rack$country=="Burma" & rack$year==1986] <- 1
-rack$mkl.ongoing[rack$country=="Burma" & rack$year==1986] <- 1
-rack$mkl.type[rack$country=="Burma" & rack$year==1986] <- 2
+rack$mkl.start[rack$country=="Myanmar" & rack$year==1986] <- 1
+rack$mkl.end[rack$country=="Myanmar" & rack$year==1986] <- 1
+rack$mkl.ongoing[rack$country=="Myanmar" & rack$year==1986] <- 1
+rack$mkl.type[rack$country=="Myanmar" & rack$year==1986] <- 2
 
 # Burundi, 1988-2005
 rack$mkl.start[rack$country=="Burundi" & rack$year==1988] <- 1
@@ -830,7 +826,7 @@ rack$mkl.start[rack$country=="Sudan" & rack$year==2011] <- 1
 rack$mkl.ongoing[rack$country=="Sudan" & rack$year>=2011] <- 1
 rack$mkl.type[rack$country=="Sudan" & rack$year==2011] <- 1
 
-# Egypt, 2013- (Muslim Brotherhood) [episode added]
+# Egypt, 2013- (Muslim Brotherhood and other "terrorist" and opposition) [episode added]
 rack$mkl.start[rack$country=="Egypt" & rack$year==2013] <- 1
 rack$mkl.ongoing[rack$country=="Egypt" & rack$year>=2013] <- 1
 rack$mkl.type[rack$country=="Egypt" & rack$year==2011] <- 2
@@ -839,12 +835,6 @@ rack$mkl.type[rack$country=="Egypt" & rack$year==2011] <- 2
 rack$mkl.start[rack$country=="Nigeria" & rack$year==2013] <- 1
 rack$mkl.ongoing[rack$country=="Nigeria" & rack$year>=2013] <- 1
 rack$mkl.type[rack$country=="Nigeria" & rack$year==2013] <- 1
-
-# CAR, 2013- (anti-balaka and bystanders) [episode added]
-rack$mkl.start[rack$country=="Central African Republic" & rack$year==2013] <- 1
-rack$mkl.ongoing[rack$country=="Central African Republic" & rack$year>=2013] <- 1
-rack$mkl.type[rack$country=="Central African Republic" & rack$year==2013] <- 1
-rack$mkl.ever[rack$country=="Central African Republic" & rack$year>=2013] <- 1
 
 # South Sudan, 2013- (Nuer and others) [episode added]
 rack$mkl.start[rack$country=="South Sudan" & rack$year==2013] <- 1
@@ -857,4 +847,4 @@ rack <- subset(rack, select = c(12, 2, 13:17))
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Write out the file.
-write.csv(rack, file = paste0(wd, "/data.out/mkl.csv"), row.names = FALSE)
+write.csv(rack, "data.out/mkl.csv", row.names = FALSE)

@@ -1,5 +1,5 @@
 # ETHNIC FRACTIONALIZATION (elf)
-# 2014-09-03
+# 2015-03-20
 
 # Source: http://www.anderson.ucla.edu/faculty_pages/romain.wacziarg/papersum.html
 # See Fractionalization Data link (http://www.anderson.ucla.edu/faculty_pages/romain.wacziarg/downloads/fractionalization.xls)
@@ -53,7 +53,7 @@ elf$elf.language <- as.numeric(elf$elf.language)
 elf$elf.religion <- as.numeric(elf$elf.religion)
 
 # Put into country-year rack with 1950 as arbitrary start, last full year as end
-rack <- merge(subset(pitfcodeit(countryyearrackit(1945,2013), "country"), select=c(sftgcode, year)), elf, all.x = TRUE)
+rack <- merge(subset(pitfcodeit(countryyearrackit(1945,2014), "country"), select=c(sftgcode, year)), elf, all.x = TRUE)
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 write.csv(rack, file = paste0(wd, "/data.out/elf.csv"), row.names = FALSE)

@@ -1,5 +1,5 @@
 # ELITE CHARACTERISTICS (elc)
-# 2014-09-08
+# 2015-04-29
 
 # Source: Center for Systemic Peace via PITF
 
@@ -13,24 +13,22 @@ wd <- getwd()
 library(XLConnect)
 
 # Load raw data
-elc <- readWorksheetFromFile(paste0(wd, "/data.in/elc2013.xls"), sheet=1)
-names(elc) <- c("sftgcode", "year", "elceleth", "elceliti")
-elc$sftgcode <- as.character(elc$sftgcode)
-
-# Change some codes for merging
-elc$sftgcode[elc$sftgcode=="SER"] <- "SRB"
-elc$sftgcode[elc$sftgcode=="MNT"] <- "MNE"
-elc$sftgcode[elc$sftgcode=="SSU"] <- "SSD"
-elc$sftgcode[elc$sftgcode=="SDN"] <- "SUD"
-elc$sftgcode[elc$sftgcode=="GMY"] <- "GER"
+ELC <- readWorksheetFromFile(paste0(wd, "/data.in/elc2014.xls"), sheet=1)
 
 # Fix names to match prefixing scheme
-names(elc) <- c("sftgcode", "year", "elc.eleth", "elc.eliti")
+names(ELC) <- c("sftgcode", "year", "elc.eleth", "elc.eliti")
+
+# Change some codes for merging
+ELC$sftgcode[ELC$sftgcode=="SER"] <- "SRB"
+ELC$sftgcode[ELC$sftgcode=="MNT"] <- "MNE"
+ELC$sftgcode[ELC$sftgcode=="SSU"] <- "SSD"
+ELC$sftgcode[ELC$sftgcode=="SDN"] <- "SUD"
+ELC$sftgcode[ELC$sftgcode=="GMY"] <- "GER"
 
 # Add rows and then hard code values for USA, which source doesn't cover
-USA <- data.frame(rep("USA", times = max(elc$year) - min(elc$year) + 1), seq(min(elc$year), max(elc$year)),
-  rep(0, times = max(elc$year) - min(elc$year) + 1), rep(0, times = max(elc$year) - min(elc$year) + 1))
-names(USA) <- names(elc)
-elc <- rbind(elc, USA)
+USA <- data.frame(rep("USA", times = max(ELC$year) - min(ELC$year) + 1), seq(min(ELC$year), max(ELC$year)),
+  rep(0, times = max(ELC$year) - min(ELC$year) + 1), rep(0, times = max(ELC$year) - min(ELC$year) + 1))
+names(USA) <- names(ELC)
+ELC <- rbind(ELC, USA)
 
-write.csv(elc, file = paste0(wd, "/data.out/elc.csv"), row.names = FALSE)
+write.csv(ELC, file = paste0(wd, "/data.out/elc.csv"), row.names = FALSE)

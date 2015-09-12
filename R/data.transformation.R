@@ -1,10 +1,10 @@
 # DATA TRANSFORMATION
-# 2014-09-08
+# 2015-05-16
 
 # Clear workspace
 rm(list=ls(all=TRUE))
 
-# Get working directory
+# Set and get working directory
 wd <- getwd()
 
 # Load required packages and functions
@@ -29,12 +29,9 @@ elc <- read.csv(paste0(wd, "/data.out/elc.csv"))
 dis <- read.csv(paste0(wd, "/data.out/dis.csv"))
 elf <- read.csv(paste0(wd, "/data.out/elf.csv"))
 imf <- read.csv(paste0(wd, "/data.out/imf.csv"))
-hum <- read.csv(paste0(wd, "/data.out/hum.csv"))
-fiw <- read.csv(paste0(wd, "/data.out/fiw.csv"))
-aut <- read.csv(paste0(wd, "/data.out/aut.csv"))
 
 # Create a country-year rack covering the requisite years
-rack <- pitfcodeit(countryyearrackit(1945,2013), "country")
+rack <- pitfcodeit(countryyearrackit(1945,2014), "country")
 
 # Merge the data sets with the rack
 dat <- merge(rack, mkl, all.x = TRUE)
@@ -50,16 +47,12 @@ dat <- merge(dat, elc, all.x = TRUE)
 dat <- merge(dat, dis, all.x = TRUE)
 dat <- merge(dat, elf, all.x = TRUE)
 dat <- merge(dat, imf, all.x = TRUE)
-dat <- merge(dat, fiw, all.x = TRUE)
-dat <- merge(dat, aut, all.x = TRUE)
-dat <- merge(dat, hum, all.x = TRUE)
 
 # Order the file by country name and year for easier review
 dat <- dat[order(dat$country, dat$year),]
 
 # Write that data frame to .csv.
 write.csv(dat, file = paste0(wd,"/data.out/ewp.statrisk.data.raw.csv"), row.names = FALSE)
-
 
 ### Mass Killing Episodes (mkl)
 # Onset of state-led mass killing in following year (***TARGET/DEP VAR FOR RISK ASSESSMENTS***)
@@ -74,7 +67,7 @@ dat$countryage.ln <- log1p(dat$countryage)
 dat$postcw <- ifelse(dat$year >= 1991, 1, 0)
 
 ### World Development Indicators (wdi)
-dat$wdi.popsize.ln <- log(dat$wdi.popsize)  # Log of population size
+dat$wdi.popsize.ln <- log(dat$wdi.popsize/1000)  # Log of population size, in 1000s for better scaling
 dat$wdi.trade.ln <- log(dat$wdi.trade)  # Log of trade openness
 
 ### Polity IV (pol)
@@ -254,7 +247,7 @@ dat$imr.normed.ln <- log(dat$imr.normed)
 
 ### Major Episodes of Political Violence (mev)
 # Index of armed conflict in proximate geographic region
-# a) Get annual sums by region as defined by MEPV and 
+# a) Get annual sums by region as defined by MEPV 
 regyrsum <- as.data.frame( cbind( seq(min(dat$year), max(dat$year), 1),
   tapply(dat$mev.actotal, list(dat$year, dat$mev.region), sum, na.rm=TRUE) ) )
 mevregs <- c("year", "r0", "r1", "r2", "r3", "r4", "r5", "r6", "r7", "r8", "r9",           # regions

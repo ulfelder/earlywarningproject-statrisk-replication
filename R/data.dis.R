@@ -1,7 +1,7 @@
 # DISCRIMINATION
-# 2014-09-05
+# 2015-05-15
 
-# Source: Center for Systemic Peace via PITF
+# Source: Center for Systemic Peace
 
 # Clear workspace
 rm(list=ls(all=TRUE))
@@ -15,7 +15,7 @@ source(paste0(wd, "/r/f.pitfcodeit.r"))
 source(paste0(wd, "/r/f.countryyearrackit.r"))
 
 # Load the data
-dis <- readWorksheetFromFile(paste0(wd, "/data.in/diss2013.xls"), sheet=1)
+dis <- readWorksheetFromFile(paste0(wd, "/data.in/diss2014.xls"), sheet=1)
 
 # Append prefix to names
 names(dis) <- c("sftgcode", "year", paste0("dis.", names(dis)[3:length(names(dis))]))
@@ -28,4 +28,4 @@ rack <- merge(subset(pitfcodeit(countryyearrackit(min(dis$year), max(dis$year)),
 rack <- replace(rack, is.na(rack)==TRUE, 0)
 
 # Write it out
-write.csv(dis, file = paste0(wd, "/data.out/dis.csv"), row.names=FALSE)
+write.csv(rack, file = paste0(wd, "/data.out/dis.csv"), row.names=FALSE)

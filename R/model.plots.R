@@ -1,5 +1,5 @@
 # PLOTS AND MAPS OF FORECASTS
-# 2014-09-08
+# 2015-05-15
 
 # Clear the workspace
 rm(list=ls(all=TRUE))
@@ -12,8 +12,7 @@ library(rworldmap)
 library(Hmisc)
 
 # Get the data and fix any formatting of country name to character
-newcast <- read.csv(paste0(wd, "/data.out/ewp.forecasts.csv"))
-newcast$country <- as.character(newcast$country)
+newcast <- read.csv(paste0(wd, "/data.out/ewp.forecasts.csv"), stringsAsFactors=FALSE)
 
 ### MAPS ###
 
@@ -23,7 +22,7 @@ newcast$country[newcast$country=="Congo-Brazzaville"] <- "Congo"
 newcast$country[newcast$country=="Congo-Kinshasa"] <- "Democratic Republic of Congo"
 
 # Join data to map
-map2014 <- joinCountryData2Map(newcast, nameJoinColumn = "country", joinCode = "NAME", verbose = TRUE)
+map2015 <- joinCountryData2Map(newcast, nameJoinColumn = "country", joinCode = "NAME", verbose = TRUE)
 
 # Map the scores
 date <- as.Date(Sys.Date())
@@ -31,7 +30,7 @@ datestring <- paste(substr(date,1,4), substr(date,6,7), substr(date,9,10), sep="
 mapname <- paste0(wd, "/figs/heatmap.", datestring, ".png")
 png(mapname, width=800, height=450, bg="white")
 par(mai=c(0,0,0.2,0),xaxs="i",yaxs="i")
-map.score <- mapCountryData(map2014,
+map.score <- mapCountryData(map2015,
   nameColumnToPlot="mean.p",
   addLegend = FALSE,
   numCats = 5, catMethod="logFixedWidth",
@@ -50,7 +49,7 @@ cats <- c(0,0.01,0.02,0.04,0.08,0.16)
 cols <- c("lightgoldenrod", "yellow", "orange", "orangered", "orangered4")
 png(mapname, width=800, height=450, bg="white")
 par(mai=c(0,0,0.2,0), xaxs="i", yaxs="i")
-map.score <- mapCountryData(map2014,
+map.score <- mapCountryData(map2015,
   nameColumnToPlot="mean.p",
   addLegend = FALSE,
   catMethod = cats,

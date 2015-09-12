@@ -1,5 +1,5 @@
 # INTERNATIONAL ORGANIZATIONS AND TREATY REGIMES
-# 2014-09-08
+# 2015-03-23
 
 # Clear workspace
 rm(list=ls(all=TRUE))
@@ -23,10 +23,11 @@ ios$sftgcode[ios$sftgcode=="UK"] <- "UKG"  # Fix country code for UK
 names(ios) <- c(names(ios)[1:2], paste0("ios.", names(ios)[3:length(names(ios))]))
 
 # Merge with wider rack to make room for selected updating that follows below  
-rack <- merge(subset(pitfcodeit(countryyearrackit(1955,2013), "country"), select=c(sftgcode, year)), ios, all.x = TRUE)
+rack <- merge(subset(pitfcodeit(countryyearrackit(1955,2014), "country"), select=c(sftgcode, year)), ios, all.x = TRUE)
 rack <- rack[order(rack$sftgcode, rack$year),]
 
 # Updates source: http://treaties.un.org/Pages/ViewDetails.aspx?src=TREATY&mtdsg_no=IV-5&chapter=4&lang=en
+# No new signatories in 2014
 for (i in 1:dim(rack)[1]) rack$ios.iccpr1[i] <- ifelse(rack$year[i] > 2010, rack$ios.iccpr1[i-1], rack$ios.iccpr1[i])
 rack$ios.iccpr1[rack$sftgcode=="TUN" & rack$year>=2011] <- 1 # acceded in 2011
 rack$ios.iccpr1[rack$sftgcode=="USA"] <- 0 
@@ -44,5 +45,6 @@ rack$ios.gattwto[rack$sftgcode=="SSD"] <- 0  # fill in missing
 rack$ios.gattwto[rack$sftgcode=="USA"] <- 1  # fill in missing
 rack$ios.gattwto[rack$sftgcode=="LAO" & rack$year>=2013] <- 1  # acceded in 2013
 rack$ios.gattwto[rack$sftgcode=="TAJ" & rack$year>=2013] <- 1  # acceded in 2013
+rack$ios.gattwto[rack$sftgcode=="YEM" & rack$year>=2014] <- 1  # acceded in 2014
 
 write.csv(rack, file = paste0(wd, "/data.out/ios.csv"), row.names = FALSE)
