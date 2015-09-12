@@ -77,10 +77,11 @@ The "model.validation.r" script uses 10-fold cross-validation with stratified ra
 DEPENDENCIES
 ____________
 
-This work was originally done in R Version 3.1.1 for 64-bit Windows OS. In addition to base R, it depends on the following packages:
+This work was originally done in R Version 3.2.1 for 64-bit Windows OS. In addition to base R, it depends on the following packages:
 
 * caret
 * DataCombine
+* dplyr
 * foreign
 * Hmisc
 * plm
